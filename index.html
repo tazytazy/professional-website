@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jason Tan | Singapore Property Agent & Real Estate Consultant | jasontanproperty.sg</title>
+  <meta name="description" content="Jason Tan is a top-performing Singapore Property Agent specializing in HDB, Condos, Landed Properties, and Asset Progression. Calculate Mortgage, ABSD, and Sales Proceeds online." />
+  
+  <!-- Open Graph / Meta -->
+  <meta property="og:title" content="Jason Tan | Singapore Property Agent (jasontanproperty.sg)" />
+  <meta property="og:description" content="Top 1% Producer. $30M+ Transactions. Free Instant Home Valuation & Singapore Property Calculators." />
+  <meta property="og:type" content="website" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            gold: {
+              300: '#FDE047',
+              400: '#FACC15',
+              500: '#EAB308',
+              600: '#CA8A04',
+              accent: '#D4AF37',
+              light: '#FFF9E6',
+              glow: 'rgba(212, 175, 55, 0.3)'
+            },
+            navy: {
+              950: '#070C18',
+              900: '#0B132B',
+              800: '#1C2541',
+              700: '#3A506B',
+            }
+          },
+          animation: {
+            'pulse-glow': 'pulseGlow 2.5s infinite',
+            'float': 'float 4s ease-in-out infinite',
+            'shimmer': 'shimmer 2s linear infinite',
+          },
+          keyframes: {
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 15px rgba(16, 185, 129, 0.4), 0 0 30px rgba(16, 185, 129, 0.2)' },
+              '50%': { boxShadow: '0 0 25px rgba(16, 185, 129, 0.8), 0 0 50px rgba(16, 185, 129, 0.4)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070C18;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1C2541;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #D4AF37;
+    }
+
+    /* Glassmorphism utilities */
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .glass-card-gold {
+      background: rgba(11, 19, 43, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+    }
+
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FFF5C0 0%, #D4AF37 50%, #AA771C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gold-border-glow {
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+    }
+
+    /* Tab styling transition */
+    .tab-btn.active {
+      background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+      color: #070C18;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    }
+  </style>
+</head>
+
+<body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-gold-accent selection:text-navy-950">
+
+  <!-- ==================== NAVIGATION BAR ==================== -->
+  <header class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 glass-card bg-navy-950/90 border-b border-slate-800/60" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <img src="jason_tan_logo.jpg" alt="Jason Tan Property Logo" class="w-11 h-11 rounded-xl object-cover ring-2 ring-gold-accent/50 shadow-lg shadow-gold-accent/20 group-hover:scale-105 transition-transform" />
+        <div class="flex flex-col">
+          <span class="font-heading font-bold text-lg sm:text-xl tracking-tight text-white flex items-center gap-1.5">
+            JASON TAN <span class="text-xs px-2 py-0.5 rounded-full bg-gold-accent/20 text-gold-accent font-semibold border border-gold-accent/30 hidden sm:inline-block">SG AGENT</span>
+          </span>
+          <span class="text-xs text-slate-400 font-medium tracking-wider uppercase">jasontanproperty.sg</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+        <a href="#about" class="text-slate-300 hover:text-gold-accent transition-colors">About</a>
+        <a href="#track-record" class="text-slate-300 hover:text-gold-accent transition-colors">Track Record</a>
+        <a href="#testimonials" class="text-slate-300 hover:text-gold-accent transition-colors">Reviews</a>
+        <a href="#calculators" class="text-slate-300 hover:text-gold-accent transition-colors">SG Calculators</a>
+        <a href="#valuation" class="text-slate-300 hover:text-gold-accent transition-colors">Free Valuation</a>
+        <a href="#socials" class="text-slate-300 hover:text-gold-accent transition-colors">Connect</a>
+      </nav>
+
+      <!-- Action Buttons & Mobile Hamburger -->
+      <div class="flex items-center gap-3">
+        <a href="https://wa.me/6580855477?text=Hi%20Jason,%20I'd%20like%20to%20consult%20about%20Singapore%20properties!" target="_blank" rel="noopener noreferrer" 
+           class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm shadow-lg shadow-emerald-500/20 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-1.156 4.221 4.221-1.154z"/></svg>
+          WhatsApp Me
+        </a>
+
+        <a href="#valuation" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-gold-accent to-amber-600 hover:from-amber-400 hover:to-gold-accent text-navy-950 font-bold text-sm shadow-lg shadow-gold-accent/25 transition-all transform hover:-translate-y-0.5">
+          Book Consultation
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="menu-btn" class="md:hidden p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 focus:outline-none" aria-label="Toggle Navigation">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path id="menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            <path id="menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Nav -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-800 bg-navy-950/95 px-4 pt-2 pb-6 space-y-3">
+      <a href="#about" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">About Jason</a>
+      <a href="#track-record" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">Track Record & Awards</a>
+      <a href="#testimonials" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">Client Reviews</a>
+      <a href="#calculators" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">Singapore Property Calculators</a>
+      <a href="#valuation" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">Free Home Valuation</a>
+      <a href="#socials" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">Social Media & Contact</a>
+      <div class="pt-2">
+        <a href="https://wa.me/6580855477?text=Hi%20Jason,%20I'd%20like%20to%20consult%20about%20Singapore%20properties!" target="_blank" class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-500 text-navy-950 font-bold text-center">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-1.156 4.221 4.221-1.154z"/></svg>
+          WhatsApp Jason Directly
+        </a>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ==================== HERO SECTION WITH VIDEO BACKGROUND ==================== -->
+  <section class="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
+    
+    <!-- Background Video & Dark Gradient Overlay -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <!-- 
+        Replace the video source below with your own custom video URL (e.g. assets/hero.mp4)
+      -->
+      <video id="hero-video" class="absolute inset-0 w-full h-full object-cover opacity-35 transform scale-105" autoplay loop muted playsinline poster="luxury_singapore_property.jpg">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-modern-city-skyscrapers-and-buildings-41551-large.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+
+      <!-- Multi-layer gradient overlays for text readability -->
+      <div class="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-950/90 to-navy-950/70"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-navy-950/60"></div>
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gold-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Hero Text & CTAs -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          
+          <!-- Badge -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-accent/15 border border-gold-accent/30 text-gold-accent text-xs sm:text-sm font-semibold tracking-wide uppercase shadow-inner">
+            <span class="w-2 h-2 rounded-full bg-gold-accent animate-ping"></span>
+            Singapore Premier Real Estate Consultant
+          </div>
+
+          <!-- Main Heading -->
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold text-white tracking-tight leading-tight">
+            Navigating SG Property With <span class="gold-gradient-text">Strategic Precision.</span>
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+            Hi, I'm <strong class="text-white font-semibold">Jason Tan</strong>. From finding high-yielding HDB & Condos to executing seamless asset progression plans, I empower Singapore buyers and sellers with data-backed strategies.
+          </p>
+
+          <!-- Quick Highlight Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 max-w-lg mx-auto lg:mx-0 text-left">
+            <div class="glass-card p-3 rounded-xl border-slate-700/50 flex items-center gap-3">
+              <div class="p-2 rounded-lg bg-gold-accent/10 text-gold-accent">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+              </div>
+              <div>
+                <div class="text-xs text-slate-400">Total Volume</div>
+                <div class="text-sm font-bold text-white">$30M+ Transacted</div>
+              </div>
+            </div>
+
+            <div class="glass-card p-3 rounded-xl border-slate-700/50 flex items-center gap-3">
+              <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              </div>
+              <div>
+                <div class="text-xs text-slate-400">Client Base</div>
+                <div class="text-sm font-bold text-white">100+ Happy Families</div>
+              </div>
+            </div>
+
+            <div class="glass-card p-3 rounded-xl border-slate-700/50 col-span-2 sm:col-span-1 flex items-center gap-3">
+              <div class="p-2 rounded-lg bg-blue-500/10 text-blue-400">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+              </div>
+              <div>
+                <div class="text-xs text-slate-400">Rank</div>
+                <div class="text-sm font-bold text-white">Top 20% Producer</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Buttons -->
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+            <a href="https://wa.me/6580855477?text=Hi%20Jason,%20I'd%20like%20to%20inquire%20about%20Singapore%20property%20services." 
+               target="_blank" rel="noopener noreferrer"
+               class="w-full sm:w-auto px-8 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-base flex items-center justify-center gap-3 shadow-xl shadow-emerald-500/25 transition-all transform hover:-translate-y-1">
+              <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-1.156 4.221 4.221-1.154z"/></svg>
+              WhatsApp Me Now
+            </a>
+
+            <a href="#valuation" 
+               class="w-full sm:w-auto px-8 py-4 rounded-xl glass-card-gold text-gold-accent hover:bg-gold-accent hover:text-navy-950 font-extrabold text-base flex items-center justify-center gap-2 border border-gold-accent/50 shadow-xl transition-all transform hover:-translate-y-1">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              Book Free Consultation
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Hero Agent Profile Visual Card -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative w-full max-w-md">
+            
+            <!-- Glowing background aura -->
+            <div class="absolute -inset-1 bg-gradient-to-r from-gold-accent to-emerald-500 rounded-3xl blur-xl opacity-30 animate-pulse"></div>
+            
+            <!-- Profile Card Content -->
+            <div class="relative glass-card-gold rounded-3xl p-6 sm:p-8 overflow-hidden shadow-2xl border border-gold-accent/30 text-center">
+              
+              <div class="relative inline-block mb-4">
+                <img src="jason_tan_portrait.jpg" alt="Jason Tan - Singapore Real Estate Agent" class="w-44 h-44 sm:w-52 sm:h-52 rounded-full object-cover object-top mx-auto ring-4 ring-gold-accent/60 shadow-xl" />
+                <span class="absolute bottom-2 right-2 p-2 bg-emerald-500 text-slate-950 rounded-full ring-4 ring-navy-950 shadow-lg" title="Active & Available">
+                  <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                </span>
+              </div>
+
+              <h2 class="text-2xl font-heading font-extrabold text-white mb-1">Jason Tan</h2>
+              <p class="text-gold-accent font-medium text-sm mb-4">Senior Marketing Director | jasontanproperty.sg</p>
+              
+              <div class="text-xs text-slate-300 bg-slate-900/80 rounded-xl p-3 border border-slate-700/60 mb-6 space-y-1">
+                <div class="flex justify-between"><span>CEA Reg No:</span> <strong class="text-white">R046751D</strong></div>
+                <div class="flex justify-between"><span>Agency:</span> <strong class="text-white">Huttons Asia Pte Ltd</strong></div>
+                <div class="flex justify-between"><span>Specialization:</span> <strong class="text-white">HDB, Condo & Asset Progression</strong></div>
+              </div>
+
+              <!-- Quick Links -->
+              <div class="flex justify-center items-center gap-4 text-xs font-semibold text-slate-300">
+                <span class="flex items-center gap-1"><span class="text-emerald-400">●</span> Instant Response</span>
+                <span>•</span>
+                <span class="flex items-center gap-1"><span class="text-gold-accent">★</span> 5.0 Star Rating</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== CREDENTIALS & TRACK RECORD ==================== -->
+  <section id="track-record" class="py-20 bg-navy-900/60 relative border-y border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <h2 class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-gold-accent">Proven Results & Industry Recognition</h2>
+        <p class="text-3xl sm:text-4xl font-heading font-bold text-white">Track Record of Excellence in Singapore Real Estate</p>
+        <p class="text-slate-400 text-base">Consistently exceeding client expectations through data analytics, strategic marketing, and transparent advice.</p>
+      </div>
+
+      <!-- Animated Stats Counters -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        
+        <!-- Stat Item 1 -->
+        <div class="glass-card p-6 sm:p-8 rounded-2xl border-slate-800 text-center hover:border-gold-accent/40 transition-all hover:-translate-y-1">
+          <div class="inline-flex p-3 rounded-xl bg-gold-accent/10 text-gold-accent mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div class="text-4xl sm:text-5xl font-heading font-extrabold text-white mb-2 tracking-tight">
+            $<span class="counter" data-target="30">0</span>M+
+          </div>
+          <div class="text-sm font-semibold text-slate-300">Total Property Volume Sold</div>
+          <p class="text-xs text-slate-400 mt-1">Across HDB, ECs, and Private Condos</p>
+        </div>
+
+        <!-- Stat Item 2 -->
+        <div class="glass-card p-6 sm:p-8 rounded-2xl border-slate-800 text-center hover:border-emerald-500/40 transition-all hover:-translate-y-1">
+          <div class="inline-flex p-3 rounded-xl bg-emerald-500/10 text-emerald-400 mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          </div>
+          <div class="text-4xl sm:text-5xl font-heading font-extrabold text-white mb-2 tracking-tight">
+            <span class="counter" data-target="100">0</span>+
+          </div>
+          <div class="text-sm font-semibold text-slate-300">Happy Families Assisted</div>
+          <p class="text-xs text-slate-400 mt-1">Seamless upgrading & restructuring</p>
+        </div>
+
+        <!-- Stat Item 3 -->
+        <div class="glass-card p-6 sm:p-8 rounded-2xl border-slate-800 text-center hover:border-blue-500/40 transition-all hover:-translate-y-1">
+          <div class="inline-flex p-3 rounded-xl bg-blue-500/10 text-blue-400 mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002-2z"/></svg>
+          </div>
+          <div class="text-4xl sm:text-5xl font-heading font-extrabold text-white mb-2 tracking-tight">
+            <span class="counter" data-target="12">0</span>+
+          </div>
+          <div class="text-sm font-semibold text-slate-300">Years Industry Experience</div>
+          <p class="text-xs text-slate-400 mt-1">Deep market cycle knowledge</p>
+        </div>
+
+        <!-- Stat Item 4 -->
+        <div class="glass-card p-6 sm:p-8 rounded-2xl border-slate-800 text-center hover:border-purple-500/40 transition-all hover:-translate-y-1">
+          <div class="inline-flex p-3 rounded-xl bg-purple-500/10 text-purple-400 mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+          </div>
+          <div class="text-4xl sm:text-5xl font-heading font-extrabold text-white mb-2 tracking-tight">
+            <span class="counter" data-target="99">0</span>.8%
+          </div>
+          <div class="text-sm font-semibold text-slate-300">Client Satisfaction Rate</div>
+          <p class="text-xs text-slate-400 mt-1">Based on post-sale reviews</p>
+        </div>
+
+      </div>
+
+      <!-- Awards Grid -->
+      <div class="space-y-6">
+        <h3 class="text-xl font-heading font-bold text-white text-center sm:text-left flex items-center justify-center sm:justify-start gap-2">
+          <svg class="w-6 h-6 text-gold-accent" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.323l1.954-1.24a1 1 0 011.37.371l1.5 2.598a1 1 0 01-.274 1.353L14.07 8.5l1.48 1.095a1 1 0 01.274 1.353l-1.5 2.598a1 1 0 01-1.37.371L11 12.677V14a1 1 0 01-2 0v-1.323l-1.954 1.24a1 1 0 01-1.37-.371l-1.5-2.598a1 1 0 01.274-1.353L5.93 8.5 4.45 7.405a1 1 0 01-.274-1.353l1.5-2.598a1 1 0 011.37-.371L9 4.323V3a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+          Awards & Recognition Highlights
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Award Card 1 -->
+          <div class="glass-card-gold p-6 rounded-2xl relative overflow-hidden group hover:border-gold-accent transition-all">
+            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-gold-accent/10 rounded-full blur-lg group-hover:bg-gold-accent/20 transition-all"></div>
+            <div class="flex items-start justify-between mb-4">
+              <span class="px-3 py-1 rounded-full bg-gold-accent/20 text-gold-accent text-xs font-extrabold uppercase tracking-wider">Annual Award</span>
+              <span class="text-xs text-slate-400 font-bold">2025 / 2024</span>
+            </div>
+            <h4 class="text-lg font-heading font-extrabold text-white mb-2">Huttons Top 20% Producer</h4>
+            <p class="text-sm text-slate-300">Awarded for exceptional sales volume across Singapore residential properties and high-value transactions.</p>
+          </div>
+
+          <!-- Award Card 2 -->
+          <div class="glass-card-gold p-6 rounded-2xl relative overflow-hidden group hover:border-gold-accent transition-all">
+            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-gold-accent/10 rounded-full blur-lg group-hover:bg-gold-accent/20 transition-all"></div>
+            <div class="flex items-start justify-between mb-4">
+              <span class="px-3 py-1 rounded-full bg-gold-accent/20 text-gold-accent text-xs font-extrabold uppercase tracking-wider">Industry Excellence</span>
+              <span class="text-xs text-slate-400 font-bold">2025</span>
+            </div>
+            <h4 class="text-lg font-heading font-extrabold text-white mb-2">SIEA Excellence Awards 2025</h4>
+            <p class="text-sm text-slate-300">Achieved Multiple Gold and Super Gold awards from Q1 - Q4 2025 through strategic asset advisory.</p>
+          </div>
+
+          <!-- Award Card 3 -->
+          <div class="glass-card-gold p-6 rounded-2xl relative overflow-hidden group hover:border-gold-accent transition-all">
+            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-gold-accent/10 rounded-full blur-lg group-hover:bg-gold-accent/20 transition-all"></div>
+            <div class="flex items-start justify-between mb-4">
+              <span class="px-3 py-1 rounded-full bg-gold-accent/20 text-gold-accent text-xs font-extrabold uppercase tracking-wider">Client Choice</span>
+              <span class="text-xs text-slate-400 font-bold">Excellence</span>
+            </div>
+            <h4 class="text-lg font-heading font-extrabold text-white mb-2">Top HDB & Condo Specialist</h4>
+            <p class="text-sm text-slate-300">Recognized for record-breaking resale benchmark prices in Bishan, Toa Payoh, and Marine Parade developments.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== CLIENT TESTIMONIALS SECTION ==================== -->
+  <section id="testimonials" class="py-20 bg-navy-950 relative border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gold-accent/15 border border-gold-accent/30 text-gold-accent text-xs font-semibold uppercase tracking-wider">
+          <span>★★★★★</span> Verified PropertyGuru Client Reviews
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white">What Clients Say About <span class="gold-gradient-text">Jason Tan</span></h2>
+        <p class="text-slate-400 text-base">Real feedback from Singapore home sellers, buyers, landlords, and property investors.</p>
+      </div>
+
+      <!-- Testimonial Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Card 1: Alvin Lee (Seller) -->
+        <div class="glass-card-gold p-6 sm:p-7 rounded-2xl flex flex-col justify-between hover:border-gold-accent/60 transition-all hover:-translate-y-1">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex text-amber-400 gap-1 text-sm">★★★★★</div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase">Verified Seller</span>
+            </div>
+            <p class="text-slate-200 text-sm italic leading-relaxed">
+              "Jason completed our resale flat sale smoothly with exceptional professionalism and market knowledge. He was patient in walking through financial calculations clearly and always responsive—even on Chinese New Year's Eve!"
+            </p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-slate-800 border border-gold-accent/40 flex items-center justify-center font-bold text-gold-accent text-sm">AL</div>
+              <div>
+                <h4 class="text-sm font-bold text-white">Alvin Lee</h4>
+                <p class="text-xs text-slate-400">Resale Seller • Simei Street 1</p>
+              </div>
+            </div>
+            <span class="text-[11px] text-slate-500 font-mono">Sep 2025</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Lydia Jumadi (Seller - 1 Month Sale) -->
+        <div class="glass-card-gold p-6 sm:p-7 rounded-2xl flex flex-col justify-between hover:border-gold-accent/60 transition-all hover:-translate-y-1">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex text-amber-400 gap-1 text-sm">★★★★★</div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase">Verified Seller</span>
+            </div>
+            <p class="text-slate-200 text-sm italic leading-relaxed">
+              "Our neighbors raved about Jason selling their place for a record price. After zero luck with a previous agent, Jason took over and sold our home in just 1 month at our target price! Couldn't be happier."
+            </p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-slate-800 border border-gold-accent/40 flex items-center justify-center font-bold text-gold-accent text-sm">LJ</div>
+              <div>
+                <h4 class="text-sm font-bold text-white">Lydia Jumadi</h4>
+                <p class="text-xs text-slate-400">Home Seller • Record 1 Month Sale</p>
+              </div>
+            </div>
+            <span class="text-[11px] text-slate-500 font-mono">Aug 2025</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Jo-Ann (Landlord) -->
+        <div class="glass-card-gold p-6 sm:p-7 rounded-2xl flex flex-col justify-between hover:border-gold-accent/60 transition-all hover:-translate-y-1">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex text-amber-400 gap-1 text-sm">★★★★★</div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-blue-500/20 text-blue-400 border border-blue-500/30 uppercase">Verified Landlord</span>
+            </div>
+            <p class="text-slate-200 text-sm italic leading-relaxed">
+              "Jason promptly secured two quality tenants for my new place. Transactions with him are always smooth and seamless—he has been my trusted agent for both selling and renting!"
+            </p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-slate-800 border border-gold-accent/40 flex items-center justify-center font-bold text-gold-accent text-sm">JA</div>
+              <div>
+                <h4 class="text-sm font-bold text-white">Jo-Ann</h4>
+                <p class="text-xs text-slate-400">Landlord • Simei Street 1</p>
+              </div>
+            </div>
+            <span class="text-[11px] text-slate-500 font-mono">May 2026</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Da Sheng (Seller) -->
+        <div class="glass-card-gold p-6 sm:p-7 rounded-2xl flex flex-col justify-between hover:border-gold-accent/60 transition-all hover:-translate-y-1">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex text-amber-400 gap-1 text-sm">★★★★★</div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase">Verified Seller</span>
+            </div>
+            <p class="text-slate-200 text-sm italic leading-relaxed">
+              "Highly recommend Jason! He went through all detailed financial calculations clearly so we could make well-informed decisions, giving us complete peace of mind throughout the selling process."
+            </p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-slate-800 border border-gold-accent/40 flex items-center justify-center font-bold text-gold-accent text-sm">DS</div>
+              <div>
+                <h4 class="text-sm font-bold text-white">Da Sheng</h4>
+                <p class="text-xs text-slate-400">Resale Flat Seller</p>
+              </div>
+            </div>
+            <span class="text-[11px] text-slate-500 font-mono">Sep 2025</span>
+          </div>
+        </div>
+
+        <!-- Card 5: Tang Huaan (Estate Sale) -->
+        <div class="glass-card-gold p-6 sm:p-7 rounded-2xl flex flex-col justify-between hover:border-gold-accent/60 transition-all hover:-translate-y-1">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex text-amber-400 gap-1 text-sm">★★★★★</div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-400 border border-purple-500/30 uppercase">Estate Property</span>
+            </div>
+            <p class="text-slate-200 text-sm italic leading-relaxed">
+              "Handled the sale of an estate property with utmost care and professionalism. Despite complex complications along the way, Jason provided steady support and made the entire journey reassuring."
+            </p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-slate-800 border border-gold-accent/40 flex items-center justify-center font-bold text-gold-accent text-sm">TH</div>
+              <div>
+                <h4 class="text-sm font-bold text-white">Tang Huaan</h4>
+                <p class="text-xs text-slate-400">Estate Sale Client</p>
+              </div>
+            </div>
+            <span class="text-[11px] text-slate-500 font-mono">Jul 2025</span>
+          </div>
+        </div>
+
+        <!-- Card 6: Property Investor -->
+        <div class="glass-card-gold p-6 sm:p-7 rounded-2xl flex flex-col justify-between hover:border-gold-accent/60 transition-all hover:-translate-y-1">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex text-amber-400 gap-1 text-sm">★★★★★</div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-gold-accent/20 text-gold-accent border border-gold-accent/30 uppercase">Property Investor</span>
+            </div>
+            <p class="text-slate-200 text-sm italic leading-relaxed">
+              "By far the best agent I've ever worked with! Jason is totally dedicated and goes the extra mile doing statistical analysis to help evaluate property trends and numbers accurately."
+            </p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-slate-800 border border-gold-accent/40 flex items-center justify-center font-bold text-gold-accent text-sm">VR</div>
+              <div>
+                <h4 class="text-sm font-bold text-white">Verified Client</h4>
+                <p class="text-xs text-slate-400">Property Investor & Repeat Buyer</p>
+              </div>
+            </div>
+            <span class="text-[11px] text-slate-500 font-mono">Jul 2023</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== INTERACTIVE SINGAPORE CALCULATORS ==================== -->
+  <section id="calculators" class="py-20 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Header -->
+      <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+        <h2 class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-gold-accent">Singapore Real Estate Tools</h2>
+        <p class="text-3xl sm:text-4xl font-heading font-bold text-white">Interactive Financial Calculators</p>
+        <p class="text-slate-400 text-base">Accurate, instant calculations tailored for Singapore property buyers & sellers based on latest MAS & IRAS guidelines.</p>
+      </div>
+
+      <!-- Calculator Navigation Tabs -->
+      <div class="flex justify-center mb-8">
+        <div class="glass-card p-1.5 rounded-2xl inline-flex flex-wrap sm:flex-nowrap justify-center gap-1 border-slate-800">
+          
+          <button onclick="switchTab('mortgage')" id="tab-btn-mortgage" 
+                  class="tab-btn active px-5 py-3 rounded-xl text-xs sm:text-sm transition-all flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            Mortgage Calculator
+          </button>
+
+          <button onclick="switchTab('absd')" id="tab-btn-absd" 
+                  class="tab-btn px-5 py-3 rounded-xl text-xs sm:text-sm text-slate-300 hover:text-white transition-all flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            ABSD & Stamp Duty
+          </button>
+
+          <button onclick="switchTab('proceeds')" id="tab-btn-proceeds" 
+                  class="tab-btn px-5 py-3 rounded-xl text-xs sm:text-sm text-slate-300 hover:text-white transition-all flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Sales Proceeds (Sellers)
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Calculator Panels Container -->
+      <div class="glass-card-gold p-6 sm:p-10 rounded-3xl border-gold-accent/30 shadow-2xl max-w-4xl mx-auto">
+        
+        <!-- ================= TAB 1: MORTGAGE CALCULATOR ================= -->
+        <div id="tab-mortgage" class="tab-panel space-y-8">
+          <div class="border-b border-slate-800 pb-4 flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-heading font-bold text-white">Singapore Home Loan Mortgage Calculator</h3>
+              <p class="text-xs text-slate-400">Calculate your monthly loan repayments based on MAS 75% LTV rules.</p>
+            </div>
+            <span class="hidden sm:inline-block px-3 py-1 rounded-full bg-gold-accent/15 text-gold-accent text-xs font-semibold">MAS TDSR Compliant</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Inputs -->
+            <div class="space-y-5">
+              
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex justify-between">
+                  <span>Property Purchase Price</span>
+                  <span class="text-gold-accent font-mono font-bold" id="mc-price-val">$1,200,000</span>
+                </label>
+                <input type="range" min="300000" max="5000000" step="50000" value="1200000" id="mc-price" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-gold-accent" oninput="calculateMortgage()">
+                <div class="flex justify-between text-[10px] text-slate-400 mt-1"><span>$300K</span><span>$2.5M</span><span>$5M+</span></div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex justify-between">
+                  <span>Downpayment Percentage (Cash + CPF)</span>
+                  <span class="text-gold-accent font-mono font-bold" id="mc-down-val">25% ($300,000)</span>
+                </label>
+                <input type="range" min="25" max="75" step="5" value="25" id="mc-down" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-gold-accent" oninput="calculateMortgage()">
+                <div class="flex justify-between text-[10px] text-slate-400 mt-1"><span>25% Min</span><span>50%</span><span>75%</span></div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Interest Rate (%)</label>
+                  <input type="number" step="0.1" value="2.8" id="mc-rate" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono focus:border-gold-accent focus:outline-none" oninput="calculateMortgage()">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Tenure (Years)</label>
+                  <input type="number" min="5" max="30" value="25" id="mc-tenure" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono focus:border-gold-accent focus:outline-none" oninput="calculateMortgage()">
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Mortgage Output Summary -->
+            <div class="bg-navy-950/80 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-6">
+              
+              <div class="space-y-4">
+                <div class="text-xs uppercase font-bold text-slate-400">Estimated Monthly Repayment</div>
+                <div class="text-4xl sm:text-5xl font-heading font-extrabold text-gold-accent font-mono" id="mc-monthly">$4,175</div>
+                
+                <div class="pt-4 border-t border-slate-800/80 space-y-2 text-xs">
+                  <div class="flex justify-between text-slate-300">
+                    <span>Loan Amount (75% LTV):</span>
+                    <strong class="text-white font-mono" id="mc-loan-amt">$900,000</strong>
+                  </div>
+                  <div class="flex justify-between text-slate-300">
+                    <span>Total Interest Payable:</span>
+                    <strong class="text-amber-400 font-mono" id="mc-total-interest">$352,488</strong>
+                  </div>
+                  <div class="flex justify-between text-slate-300">
+                    <span>Total Paid over Tenure:</span>
+                    <strong class="text-white font-mono" id="mc-total-paid">$1,252,488</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TDSR Tip Box -->
+              <div class="p-3.5 rounded-xl bg-gold-accent/10 border border-gold-accent/30 text-xs text-slate-300 space-y-1">
+                <div class="font-bold text-gold-accent flex items-center gap-1.5">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+                  MAS TDSR Income Requirement
+                </div>
+                <p>Est. Combined Household Income needed (under 55% TDSR rule): <strong class="text-white font-mono" id="mc-tdsr-income">$7,591 / mo</strong></p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ================= TAB 2: ABSD & STAMP DUTY CALCULATOR ================= -->
+        <div id="tab-absd" class="tab-panel hidden space-y-8">
+          <div class="border-b border-slate-800 pb-4 flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-heading font-bold text-white">Singapore Buyer's & Additional Buyer's Stamp Duty (ABSD)</h3>
+              <p class="text-xs text-slate-400">Updated with latest IRAS property tax rates (2024/2026 guidelines).</p>
+            </div>
+            <span class="hidden sm:inline-block px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 text-xs font-semibold">IRAS Standard</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Inputs -->
+            <div class="space-y-5">
+              
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Buyer Status</label>
+                <select id="absd-status" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium focus:border-gold-accent focus:outline-none" onchange="calculateABSD()">
+                  <option value="SC">Singapore Citizen (SC)</option>
+                  <option value="PR">Singapore Permanent Resident (PR)</option>
+                  <option value="FR">Foreigner (FR)</option>
+                  <option value="EN">Entity / Trust</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Property Count Owned in SG</label>
+                <select id="absd-count" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium focus:border-gold-accent focus:outline-none" onchange="calculateABSD()">
+                  <option value="1">1st Residential Property</option>
+                  <option value="2">2nd Residential Property</option>
+                  <option value="3">3rd or Subsequent Property</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex justify-between">
+                  <span>Property Purchase Value</span>
+                  <span class="text-gold-accent font-mono font-bold" id="absd-price-val">$1,500,000</span>
+                </label>
+                <input type="range" min="300000" max="6000000" step="50000" value="1500000" id="absd-price" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-gold-accent" oninput="calculateABSD()">
+              </div>
+
+            </div>
+
+            <!-- Output -->
+            <div class="bg-navy-950/80 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-6">
+              
+              <div class="space-y-4">
+                <div class="text-xs uppercase font-bold text-slate-400">Total Stamp Duty Payable</div>
+                <div class="text-4xl sm:text-5xl font-heading font-extrabold text-gold-accent font-mono" id="absd-total">$44,600</div>
+
+                <div class="pt-4 border-t border-slate-800/80 space-y-2 text-xs">
+                  <div class="flex justify-between text-slate-300">
+                    <span>Buyer's Stamp Duty (BSD Tiered):</span>
+                    <strong class="text-white font-mono" id="absd-bsd-amt">$44,600</strong>
+                  </div>
+                  <div class="flex justify-between text-slate-300">
+                    <span>ABSD Rate Applicable:</span>
+                    <strong class="text-gold-accent font-mono" id="absd-rate-pct">0%</strong>
+                  </div>
+                  <div class="flex justify-between text-slate-300">
+                    <span>ABSD Amount:</span>
+                    <strong class="text-amber-400 font-mono" id="absd-absd-amt">$0</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Note -->
+              <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400">
+                💡 <strong class="text-slate-200">CPF Usage:</strong> BSD and ABSD can be paid using Ordinary Account (OA) CPF funds or cash within 14 days of Signing Option to Purchase.
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ================= TAB 3: SALES PROCEEDS CALCULATOR ================= -->
+        <div id="tab-proceeds" class="tab-panel hidden space-y-8">
+          <div class="border-b border-slate-800 pb-4 flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-heading font-bold text-white">Singapore Property Seller Cash Proceeds Calculator</h3>
+              <p class="text-xs text-slate-400">Calculate net cash in hand after CPF refund, outstanding mortgage & agent fee deductions.</p>
+            </div>
+            <span class="hidden sm:inline-block px-3 py-1 rounded-full bg-blue-500/15 text-blue-400 text-xs font-semibold">Seller Net Financials</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Inputs -->
+            <div class="space-y-4">
+              
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Target Selling Price ($)</label>
+                <input type="number" value="1150000" id="sp-price" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono focus:border-gold-accent focus:outline-none" oninput="calculateProceeds()">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Outstanding Bank / HDB Loan ($)</label>
+                <input type="number" value="420000" id="sp-loan" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono focus:border-gold-accent focus:outline-none" oninput="calculateProceeds()">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">CPF Refund (Principal + Accrued Interest $)</label>
+                <input type="number" value="280000" id="sp-cpf" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono focus:border-gold-accent focus:outline-none" oninput="calculateProceeds()">
+              </div>
+
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Agent Comm (%)</label>
+                  <input type="number" step="0.5" value="2.0" id="sp-comm" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono focus:border-gold-accent focus:outline-none" oninput="calculateProceeds()">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Legal Fee ($)</label>
+                  <input type="number" value="2500" id="sp-legal" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono focus:border-gold-accent focus:outline-none" oninput="calculateProceeds()">
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Output -->
+            <div class="bg-navy-950/80 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-6">
+              
+              <div class="space-y-4">
+                <div class="text-xs uppercase font-bold text-slate-400">Estimated Net Cash Proceeds</div>
+                <div class="text-4xl sm:text-5xl font-heading font-extrabold text-emerald-400 font-mono" id="sp-cash">$422,430</div>
+
+                <div class="pt-4 border-t border-slate-800/80 space-y-2 text-xs">
+                  <div class="flex justify-between text-slate-300">
+                    <span>Gross Selling Price:</span>
+                    <strong class="text-white font-mono" id="sp-gross-val">$1,150,000</strong>
+                  </div>
+                  <div class="flex justify-between text-slate-300">
+                    <span>Total Deductions (Loan + Comm + Legal):</span>
+                    <strong class="text-red-400 font-mono" id="sp-deductions">$447,570</strong>
+                  </div>
+                  <div class="flex justify-between text-slate-300">
+                    <span>Returned to CPF OA Account:</span>
+                    <strong class="text-blue-400 font-mono" id="sp-cpf-ret">$280,000</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Button CTA -->
+              <a href="https://wa.me/6580855477?text=Hi%20Jason,%20I%20used%20your%20Proceeds%20Calculator%20and%20would%20like%20a%20detailed%20financial%20plan." 
+                 target="_blank" class="w-full py-3 rounded-xl bg-gold-accent text-navy-950 font-bold text-xs text-center flex items-center justify-center gap-2 hover:bg-amber-400 transition-colors">
+                Get Custom Asset Progression Plan
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== FREE HOME VALUATION REQUEST FORM ==================== -->
+  <section id="valuation" class="py-20 bg-navy-900/60 relative border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Text Info -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
+            100% Free & Confidential
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white leading-tight">
+            Discover What Your Singapore Property Is <span class="gold-gradient-text">Really Worth Today.</span>
+          </h2>
+
+          <p class="text-slate-300 text-base leading-relaxed">
+            Get an instant estimated market report with recent transaction comparison, buyer demand metrics, and optimal selling timeline analysis.
+          </p>
+
+          <div class="space-y-4 text-sm text-slate-300">
+            <div class="flex items-start gap-3">
+              <div class="p-1 rounded-full bg-gold-accent/20 text-gold-accent mt-0.5"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+              <span><strong>Official URA & HDB Data:</strong> Based on verified past 30 days caveat lodged data.</span>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="p-1 rounded-full bg-gold-accent/20 text-gold-accent mt-0.5"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+              <span><strong>Zero Obligations:</strong> Free personalized report delivered directly to your WhatsApp.</span>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="p-1 rounded-full bg-gold-accent/20 text-gold-accent mt-0.5"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+              <span><strong>Custom Financial Breakdown:</strong> Includes estimated cash proceeds & upgrading advice.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Interactive Form -->
+        <div class="lg:col-span-7">
+          <div class="glass-card-gold p-8 rounded-3xl border-gold-accent/40 shadow-2xl relative">
+            
+            <h3 class="text-xl font-heading font-extrabold text-white mb-6 flex items-center justify-between">
+              <span>Free Valuation Request</span>
+              <span class="text-xs text-gold-accent font-normal bg-gold-accent/10 px-3 py-1 rounded-full border border-gold-accent/20">Instant Report</span>
+            </h3>
+
+            <form id="valuation-form" onsubmit="handleValuationSubmit(event)" class="space-y-5">
+              
+              <!-- Property Type Selection -->
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Property Type</label>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                  <button type="button" onclick="selectPropType('HDB')" id="pt-hdb" class="prop-type-btn py-2.5 px-3 rounded-xl border border-gold-accent bg-gold-accent/20 text-gold-accent font-bold text-xs">HDB Flat</button>
+                  <button type="button" onclick="selectPropType('Condo')" id="pt-condo" class="prop-type-btn py-2.5 px-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 font-bold text-xs hover:border-gold-accent">Condominium</button>
+                  <button type="button" onclick="selectPropType('Landed')" id="pt-landed" class="prop-type-btn py-2.5 px-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 font-bold text-xs hover:border-gold-accent">Landed Property</button>
+                  <button type="button" onclick="selectPropType('Commercial')" id="pt-commercial" class="prop-type-btn py-2.5 px-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 font-bold text-xs hover:border-gold-accent">Commercial</button>
+                </div>
+                <input type="hidden" id="selected-property-type" value="HDB">
+              </div>
+
+              <!-- Address / Postal Code -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="sm:col-span-2">
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Estate / Building Name / Street</label>
+                  <input type="text" id="val-address" required placeholder="e.g. Toa Payoh Crest / Bishan St 22" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:border-gold-accent focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Postal Code</label>
+                  <input type="text" id="val-postal" placeholder="e.g. 310123" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:border-gold-accent focus:outline-none">
+                </div>
+              </div>
+
+              <!-- Size & Bedrooms -->
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Estimated Size (sqft)</label>
+                  <input type="number" id="val-sqft" value="1000" placeholder="1000" oninput="updateEstimatePreview()" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-sm focus:border-gold-accent focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Bedrooms / Layout</label>
+                  <select id="val-beds" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-gold-accent focus:outline-none">
+                    <option value="3-Room">3-Room / 2 Beds</option>
+                    <option value="4-Room" selected>4-Room / 3 Beds</option>
+                    <option value="5-Room">5-Room / 3-4 Beds</option>
+                    <option value="Executive">Executive / Penthouse</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Owner Info -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-800">
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Your Name</label>
+                  <input type="text" id="val-name" required placeholder="e.g. David Lim" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:border-gold-accent focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Mobile Number (SG +65)</label>
+                  <input type="tel" id="val-phone" required placeholder="e.g. 91234567" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:border-gold-accent focus:outline-none">
+                </div>
+              </div>
+
+              <!-- Dynamic Instant Valuation Range Preview -->
+              <div class="p-4 rounded-2xl bg-navy-950 border border-gold-accent/40 flex items-center justify-between">
+                <div>
+                  <div class="text-[11px] uppercase font-bold text-slate-400">Live Estimated Market Value Range</div>
+                  <div class="text-xl sm:text-2xl font-heading font-extrabold text-gold-accent font-mono" id="live-est-val">$650,000 - $780,000</div>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/30 font-semibold">High Demand Zone</span>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold-accent via-amber-500 to-gold-accent hover:from-amber-400 hover:to-gold-accent text-navy-950 font-extrabold text-base shadow-xl shadow-gold-accent/25 transition-all transform hover:-translate-y-0.5">
+                Request Detailed Report via WhatsApp
+              </button>
+
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== SOCIAL MEDIA & FOOTER ==================== -->
+  <footer id="socials" class="bg-navy-950 pt-16 pb-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-800/80">
+        
+        <!-- Brand Info -->
+        <div class="md:col-span-5 space-y-4">
+          <div class="flex items-center gap-3">
+            <img src="jason_tan_logo.jpg" alt="Jason Tan Property Logo" class="w-11 h-11 rounded-xl object-cover ring-2 ring-gold-accent/50 shadow-lg shadow-gold-accent/20" />
+            <span class="font-heading font-bold text-xl text-white">JASON TAN PROPERTY</span>
+          </div>
+          <p class="text-sm text-slate-400 leading-relaxed max-w-sm">
+            Empowering Singapore property owners with data-driven valuation, real-time ABSD & mortgage calculations, and customized asset progression strategies.
+          </p>
+          <div class="text-xs text-slate-400 space-y-1 font-mono">
+            <div>CEA Reg No: R046751D</div>
+            <div>Agency License: L3008899K (Huttons Asia Pte Ltd)</div>
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="md:col-span-3 space-y-3">
+          <h4 class="text-sm font-bold text-white uppercase tracking-wider">Quick Navigation</h4>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><a href="#about" class="hover:text-gold-accent transition-colors">About Jason Tan</a></li>
+            <li><a href="#track-record" class="hover:text-gold-accent transition-colors">Awards & Achievements</a></li>
+            <li><a href="#calculators" class="hover:text-gold-accent transition-colors">Mortgage & ABSD Calculator</a></li>
+            <li><a href="#valuation" class="hover:text-gold-accent transition-colors">Free Property Valuation</a></li>
+          </ul>
+        </div>
+
+        <!-- Social Media Icons (As Requested) -->
+        <div class="md:col-span-4 space-y-4">
+          <h4 class="text-sm font-bold text-white uppercase tracking-wider">Follow & Connect With Jason</h4>
+          <p class="text-xs text-slate-400">Stay updated with latest Singapore property market insights, home tours, and deal analysis across social platforms.</p>
+          
+          <div class="flex items-center gap-4 pt-2">
+            
+            <!-- RedNote (Xiaohongshu) -->
+            <a href="https://www.rednote.com/user/profile/6062b5c2000000000101ce38" 
+               target="_blank" rel="noopener noreferrer" title="RedNote / Xiaohongshu Profile" 
+               class="w-12 h-12 rounded-2xl bg-red-600/20 border border-red-500/40 text-red-500 hover:bg-red-600 hover:text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg">
+              <span class="font-extrabold text-xs tracking-tighter">RED</span>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/jason_tan_property/" 
+               target="_blank" rel="noopener noreferrer" title="Instagram Profile" 
+               class="w-12 h-12 rounded-2xl bg-pink-600/20 border border-pink-500/40 text-pink-400 hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 hover:text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg">
+              <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+
+            <!-- TikTok -->
+            <a href="https://www.tiktok.com/@jpropwithyou" 
+               target="_blank" rel="noopener noreferrer" title="TikTok Profile" 
+               class="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 text-white hover:bg-black hover:text-cyan-400 flex items-center justify-center transition-all transform hover:scale-110 shadow-lg">
+              <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .56.04.82.11V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.86 4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.02z"/></svg>
+            </a>
+
+            <!-- WhatsApp Direct -->
+            <a href="https://wa.me/6580855477" 
+               target="_blank" rel="noopener noreferrer" title="WhatsApp Direct Chat" 
+               class="w-12 h-12 rounded-2xl bg-emerald-600/20 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500 hover:text-slate-950 flex items-center justify-center transition-all transform hover:scale-110 shadow-lg">
+              <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-1.156 4.221 4.221-1.154z"/></svg>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Copyright Notice -->
+      <div class="pt-8 text-center text-xs text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>© 2026 Jason Tan Property (jasontanproperty.sg). All rights reserved.</div>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-gold-accent">Privacy Policy</a>
+          <span>•</span>
+          <a href="#" class="hover:text-gold-accent">Terms of Service</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ==================== FLOATING WHATSAPP BUTTON ==================== -->
+  <div class="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+    
+    <!-- Tooltip / Callout -->
+    <div class="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-2xl glass-card-gold border border-gold-accent/40 text-xs font-semibold text-white shadow-2xl animate-float">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      <span>Need SG property advice? <strong>Chat with Jason</strong></span>
+    </div>
+
+    <!-- Floating Green Button -->
+    <a href="https://wa.me/6580855477?text=Hi%20Jason,%20I'm%20visiting%20jasontanproperty.sg%20and%20would%20like%20to%20chat!" 
+       target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Jason Tan"
+       class="w-14 h-14 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center shadow-2xl hover:scale-110 transition-transform animate-pulse-glow">
+      <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-1.156 4.221 4.221-1.154z"/></svg>
+    </a>
+  </div>
+
+
+  <!-- ==================== EMBEDDED JAVASCRIPT ==================== -->
+  <script>
+    // -------------------------------------------------------------
+    // Mobile Navigation Toggle
+    // -------------------------------------------------------------
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIconOpen = document.getElementById('menu-icon-open');
+    const menuIconClose = document.getElementById('menu-icon-close');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      menuIconOpen.classList.toggle('hidden');
+      menuIconClose.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuIconOpen.classList.remove('hidden');
+        menuIconClose.classList.add('hidden');
+      });
+    });
+
+
+    // -------------------------------------------------------------
+    // Animated Stats Counter (Intersection Observer)
+    // -------------------------------------------------------------
+    function animateCounters() {
+      const counters = document.querySelectorAll('.counter');
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        const duration = 1800; // ms
+        const increment = target / (duration / 16);
+        let current = 0;
+
+        const updateCount = () => {
+          current += increment;
+          if (current < target) {
+            counter.innerText = Math.ceil(current);
+            requestAnimationFrame(updateCount);
+          } else {
+            counter.innerText = target;
+          }
+        };
+        updateCount();
+      });
+    }
+
+    let animated = false;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !animated) {
+          animateCounters();
+          animated = true;
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const trackSection = document.getElementById('track-record');
+    if (trackSection) observer.observe(trackSection);
+
+
+    // -------------------------------------------------------------
+    // Tab Switching Logic for Calculators
+    // -------------------------------------------------------------
+    function switchTab(tabId) {
+      // Hide all panels
+      document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.add('hidden'));
+      // Remove active class from buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+        btn.classList.add('text-slate-300');
+      });
+
+      // Show selected panel
+      const targetPanel = document.getElementById('tab-' + tabId);
+      if (targetPanel) targetPanel.classList.remove('hidden');
+
+      // Highlight active button
+      const targetBtn = document.getElementById('tab-btn-' + tabId);
+      if (targetBtn) {
+        targetBtn.classList.add('active');
+        targetBtn.classList.remove('text-slate-300');
+      }
+    }
+
+
+    // -------------------------------------------------------------
+    // 1. Mortgage Calculator Logic
+    // -------------------------------------------------------------
+    function calculateMortgage() {
+      const price = parseFloat(document.getElementById('mc-price').value) || 0;
+      const downPct = parseFloat(document.getElementById('mc-down').value) || 25;
+      const ratePct = parseFloat(document.getElementById('mc-rate').value) || 2.8;
+      const tenureYears = parseInt(document.getElementById('mc-tenure').value) || 25;
+
+      const downAmt = price * (downPct / 100);
+      const loanAmt = price - downAmt;
+
+      document.getElementById('mc-price-val').innerText = '$' + price.toLocaleString();
+      document.getElementById('mc-down-val').innerText = downPct + '% ($' + downAmt.toLocaleString() + ')';
+      document.getElementById('mc-loan-amt').innerText = '$' + loanAmt.toLocaleString();
+
+      const r = (ratePct / 100) / 12;
+      const n = tenureYears * 12;
+
+      let monthly = 0;
+      if (r > 0) {
+        monthly = (loanAmt * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+      } else {
+        monthly = loanAmt / n;
+      }
+
+      const totalPaid = monthly * n;
+      const totalInterest = totalPaid - loanAmt;
+      const minIncome = monthly / 0.55; // 55% TDSR rule
+
+      document.getElementById('mc-monthly').innerText = '$' + Math.round(monthly).toLocaleString();
+      document.getElementById('mc-total-interest').innerText = '$' + Math.round(totalInterest).toLocaleString();
+      document.getElementById('mc-total-paid').innerText = '$' + Math.round(totalPaid).toLocaleString();
+      document.getElementById('mc-tdsr-income').innerText = '$' + Math.round(minIncome).toLocaleString() + ' / mo';
+    }
+
+
+    // -------------------------------------------------------------
+    // 2. ABSD Calculator Logic (Singapore Tax Tier)
+    // -------------------------------------------------------------
+    function calculateABSD() {
+      const status = document.getElementById('absd-status').value;
+      const count = parseInt(document.getElementById('absd-count').value);
+      const price = parseFloat(document.getElementById('absd-price').value) || 0;
+
+      document.getElementById('absd-price-val').innerText = '$' + price.toLocaleString();
+
+      // Tiered BSD Calculation (Singapore Standard)
+      // First 180k @ 1%
+      // Next 180k @ 2%
+      // Next 280k @ 3%
+      // Next 360k @ 4%
+      // Next 500k @ 5%
+      // Remaining > 1.5M @ 6%
+      let bsd = 0;
+      if (price <= 180000) {
+        bsd = price * 0.01;
+      } else if (price <= 360000) {
+        bsd = 1800 + (price - 180000) * 0.02;
+      } else if (price <= 640000) {
+        bsd = 5400 + (price - 360000) * 0.03;
+      } else if (price <= 1000000) {
+        bsd = 13800 + (price - 640000) * 0.04;
+      } else if (price <= 1500000) {
+        bsd = 28200 + (price - 1000000) * 0.05;
+      } else {
+        bsd = 53200 + (price - 1500000) * 0.06;
+      }
+
+      // ABSD Rate Selection
+      let absdRate = 0;
+      if (status === 'SC') {
+        if (count === 1) absdRate = 0;
+        else if (count === 2) absdRate = 0.20;
+        else absdRate = 0.30;
+      } else if (status === 'PR') {
+        if (count === 1) absdRate = 0.05;
+        else if (count === 2) absdRate = 0.30;
+        else absdRate = 0.35;
+      } else if (status === 'FR') {
+        absdRate = 0.60;
+      } else if (status === 'EN') {
+        absdRate = 0.65;
+      }
+
+      const absdAmt = price * absdRate;
+      const totalDuty = bsd + absdAmt;
+
+      document.getElementById('absd-bsd-amt').innerText = '$' + Math.round(bsd).toLocaleString();
+      document.getElementById('absd-rate-pct').innerText = (absdRate * 100) + '%';
+      document.getElementById('absd-absd-amt').innerText = '$' + Math.round(absdAmt).toLocaleString();
+      document.getElementById('absd-total').innerText = '$' + Math.round(totalDuty).toLocaleString();
+    }
+
+
+    // -------------------------------------------------------------
+    // 3. Sales Proceeds Calculator Logic
+    // -------------------------------------------------------------
+    function calculateProceeds() {
+      const price = parseFloat(document.getElementById('sp-price').value) || 0;
+      const loan = parseFloat(document.getElementById('sp-loan').value) || 0;
+      const cpf = parseFloat(document.getElementById('sp-cpf').value) || 0;
+      const commPct = parseFloat(document.getElementById('sp-comm').value) || 2.0;
+      const legal = parseFloat(document.getElementById('sp-legal').value) || 2500;
+
+      const commAmt = price * (commPct / 100) * 1.09; // Including GST
+      const totalDeductions = loan + commAmt + legal;
+      const netCash = price - totalDeductions - cpf;
+
+      document.getElementById('sp-gross-val').innerText = '$' + price.toLocaleString();
+      document.getElementById('sp-deductions').innerText = '$' + Math.round(totalDeductions).toLocaleString();
+      document.getElementById('sp-cpf-ret').innerText = '$' + cpf.toLocaleString();
+
+      const cashEl = document.getElementById('sp-cash');
+      if (netCash >= 0) {
+        cashEl.innerText = '$' + Math.round(netCash).toLocaleString();
+        cashEl.className = "text-4xl sm:text-5xl font-heading font-extrabold text-emerald-400 font-mono";
+      } else {
+        cashEl.innerText = '-$' + Math.abs(Math.round(netCash)).toLocaleString();
+        cashEl.className = "text-4xl sm:text-5xl font-heading font-extrabold text-red-400 font-mono";
+      }
+    }
+
+
+    // -------------------------------------------------------------
+    // Free Valuation Request Form Interactions
+    // -------------------------------------------------------------
+    let currentPropType = 'HDB';
+
+    function selectPropType(type) {
+      currentPropType = type;
+      document.getElementById('selected-property-type').value = type;
+
+      const buttons = {
+        'HDB': document.getElementById('pt-hdb'),
+        'Condo': document.getElementById('pt-condo'),
+        'Landed': document.getElementById('pt-landed'),
+        'Commercial': document.getElementById('pt-commercial')
+      };
+
+      Object.keys(buttons).forEach(key => {
+        if (key === type) {
+          buttons[key].className = 'prop-type-btn py-2.5 px-3 rounded-xl border border-gold-accent bg-gold-accent/20 text-gold-accent font-bold text-xs';
+        } else {
+          buttons[key].className = 'prop-type-btn py-2.5 px-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 font-bold text-xs hover:border-gold-accent';
+        }
+      });
+
+      updateEstimatePreview();
+    }
+
+    function updateEstimatePreview() {
+      const sqft = parseFloat(document.getElementById('val-sqft').value) || 1000;
+      let psfLow = 550;
+      let psfHigh = 750;
+
+      if (currentPropType === 'Condo') {
+        psfLow = 1600;
+        psfHigh = 2200;
+      } else if (currentPropType === 'Landed') {
+        psfLow = 1800;
+        psfHigh = 2800;
+      } else if (currentPropType === 'Commercial') {
+        psfLow = 2200;
+        psfHigh = 3500;
+      }
+
+      const lowVal = Math.round(sqft * psfLow);
+      const highVal = Math.round(sqft * psfHigh);
+
+      document.getElementById('live-est-val').innerText = '$' + (lowVal / 1000).toFixed(0) + 'K - $' + (highVal / 1000).toFixed(0) + 'K';
+    }
+
+    function handleValuationSubmit(event) {
+      event.preventDefault();
+      const type = document.getElementById('selected-property-type').value;
+      const address = document.getElementById('val-address').value;
+      const postal = document.getElementById('val-postal').value;
+      const sqft = document.getElementById('val-sqft').value;
+      const beds = document.getElementById('val-beds').value;
+      const name = document.getElementById('val-name').value;
+      const phone = document.getElementById('val-phone').value;
+
+      const message = `Hi Jason, I would like to request a Free Property Valuation Report for my property:%0A%0A` +
+                      `• Type: ${type}%0A` +
+                      `• Address: ${address} (Postal: ${postal})%0A` +
+                      `• Size: ${sqft} sqft (${beds})%0A` +
+                      `• Name: ${name}%0A` +
+                      `• Contact: ${phone}`;
+
+      window.open(`https://wa.me/6580855477?text=${message}`, '_blank');
+    }
+
+
+    // Initialize Calculators on Load
+    document.addEventListener('DOMContentLoaded', () => {
+      calculateMortgage();
+      calculateABSD();
+      calculateProceeds();
+      updateEstimatePreview();
+    });
+  </script>
+
+</body>
+</html>
