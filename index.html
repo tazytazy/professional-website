@@ -928,11 +928,10 @@
               <!-- Property Type Selection -->
               <div>
                 <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Property Type</label>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                <div class="grid grid-cols-3 gap-2.5">
                   <button type="button" onclick="selectPropType('HDB')" id="pt-hdb" class="prop-type-btn py-2.5 px-3 rounded-xl border border-gold-accent bg-gold-accent/20 text-gold-accent font-bold text-xs">HDB Flat</button>
                   <button type="button" onclick="selectPropType('Condo')" id="pt-condo" class="prop-type-btn py-2.5 px-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 font-bold text-xs hover:border-gold-accent">Condominium</button>
                   <button type="button" onclick="selectPropType('Landed')" id="pt-landed" class="prop-type-btn py-2.5 px-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 font-bold text-xs hover:border-gold-accent">Landed Property</button>
-                  <button type="button" onclick="selectPropType('Commercial')" id="pt-commercial" class="prop-type-btn py-2.5 px-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 font-bold text-xs hover:border-gold-accent">Commercial</button>
                 </div>
                 <input type="hidden" id="selected-property-type" value="HDB">
               </div>
@@ -949,19 +948,40 @@
                 </div>
               </div>
 
-              <!-- Size & Bedrooms -->
+              <!-- Floor Level & Unit Number (Conditional for HDB & Condo) -->
+              <div id="unit-level-container" class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Floor Level</label>
+                  <select id="val-level" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-gold-accent focus:outline-none">
+                    <option value="Low Floor (L1 - L4)">Low Floor (L1 - L4)</option>
+                    <option value="Mid Floor (L5 - L10)" selected>Mid Floor (L5 - L10)</option>
+                    <option value="High Floor (L11 - L20)">High Floor (L11 - L20)</option>
+                    <option value="Very High Floor (L21+)">Very High Floor (L21+)</option>
+                    <option value="Penthouse / Top Floor">Penthouse / Top Floor</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Unit Number (Optional)</label>
+                  <input type="text" id="val-unit" placeholder="e.g. #08-123" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:border-gold-accent focus:outline-none">
+                </div>
+              </div>
+
+              <!-- Size & Bedrooms / Layout -->
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Estimated Size (sqft)</label>
                   <input type="number" id="val-sqft" value="1000" placeholder="1000" oninput="updateEstimatePreview()" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-sm focus:border-gold-accent focus:outline-none">
                 </div>
                 <div>
-                  <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Bedrooms / Layout</label>
+                  <label id="val-beds-label" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Bedrooms / Layout</label>
                   <select id="val-beds" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-gold-accent focus:outline-none">
-                    <option value="3-Room">3-Room / 2 Beds</option>
-                    <option value="4-Room" selected>4-Room / 3 Beds</option>
-                    <option value="5-Room">5-Room / 3-4 Beds</option>
-                    <option value="Executive">Executive / Penthouse</option>
+                    <option value="Studio">Studio</option>
+                    <option value="1 Room">1 Room</option>
+                    <option value="2 Room">2 Room</option>
+                    <option value="3 Room">3 Room</option>
+                    <option value="4 Room" selected>4 Room</option>
+                    <option value="5 Room">5 Room</option>
+                    <option value="Executive Maisonette / Apartment">Executive Maisonette / Apartment</option>
                   </select>
                 </div>
               </div>
@@ -1326,6 +1346,66 @@
     // -------------------------------------------------------------
     let currentPropType = 'HDB';
 
+    const layoutOptions = {
+      'HDB': [
+        'Studio',
+        '1 Room',
+        '2 Room',
+        '3 Room',
+        '4 Room',
+        '5 Room',
+        'Executive Maisonette / Apartment'
+      ],
+      'Condo': [
+        'Studio',
+        '1 Bedroom',
+        '2 Bedrooms',
+        '3 Bedrooms',
+        '4 Bedrooms',
+        '5 Bedrooms and Above',
+        'Penthouse'
+      ],
+      'Landed': [
+        'Terraced House',
+        'Detached House',
+        'Semi-Detached House',
+        'Corner Terrace',
+        'Bungalow',
+        'Good Class Bungalow',
+        'Shophouse',
+        'Land Only',
+        'Town House',
+        'Conservation House',
+        'Cluster House'
+      ]
+    };
+
+    function updateLayoutOptions(type) {
+      const bedsSelect = document.getElementById('val-beds');
+      const labelEl = document.getElementById('val-beds-label');
+      const unitLevelContainer = document.getElementById('unit-level-container');
+
+      if (labelEl) {
+        labelEl.innerText = type === 'Landed' ? 'Property Sub-Type' : 'Bedrooms / Layout';
+      }
+
+      if (unitLevelContainer) {
+        if (type === 'HDB' || type === 'Condo') {
+          unitLevelContainer.classList.remove('hidden');
+        } else {
+          unitLevelContainer.classList.add('hidden');
+        }
+      }
+
+      const options = layoutOptions[type] || layoutOptions['HDB'];
+      bedsSelect.innerHTML = options.map(opt => {
+        const isSelected = (type === 'HDB' && opt === '4 Room') || 
+                           (type === 'Condo' && opt === '3 Bedrooms') || 
+                           (type === 'Landed' && opt === 'Terraced House');
+        return `<option value="${opt}" ${isSelected ? 'selected' : ''}>${opt}</option>`;
+      }).join('');
+    }
+
     function selectPropType(type) {
       currentPropType = type;
       document.getElementById('selected-property-type').value = type;
@@ -1333,18 +1413,20 @@
       const buttons = {
         'HDB': document.getElementById('pt-hdb'),
         'Condo': document.getElementById('pt-condo'),
-        'Landed': document.getElementById('pt-landed'),
-        'Commercial': document.getElementById('pt-commercial')
+        'Landed': document.getElementById('pt-landed')
       };
 
       Object.keys(buttons).forEach(key => {
-        if (key === type) {
-          buttons[key].className = 'prop-type-btn py-2.5 px-3 rounded-xl border border-gold-accent bg-gold-accent/20 text-gold-accent font-bold text-xs';
-        } else {
-          buttons[key].className = 'prop-type-btn py-2.5 px-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 font-bold text-xs hover:border-gold-accent';
+        if (buttons[key]) {
+          if (key === type) {
+            buttons[key].className = 'prop-type-btn py-2.5 px-3 rounded-xl border border-gold-accent bg-gold-accent/20 text-gold-accent font-bold text-xs';
+          } else {
+            buttons[key].className = 'prop-type-btn py-2.5 px-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 font-bold text-xs hover:border-gold-accent';
+          }
         }
       });
 
+      updateLayoutOptions(type);
       updateEstimatePreview();
     }
 
@@ -1359,9 +1441,6 @@
       } else if (currentPropType === 'Landed') {
         psfLow = 1800;
         psfHigh = 2800;
-      } else if (currentPropType === 'Commercial') {
-        psfLow = 2200;
-        psfHigh = 3500;
       }
 
       const lowVal = Math.round(sqft * psfLow);
@@ -1377,13 +1456,20 @@
       const postal = document.getElementById('val-postal').value;
       const sqft = document.getElementById('val-sqft').value;
       const beds = document.getElementById('val-beds').value;
+      const level = document.getElementById('val-level') ? document.getElementById('val-level').value : '';
+      const unit = document.getElementById('val-unit') ? document.getElementById('val-unit').value : '';
       const name = document.getElementById('val-name').value;
       const phone = document.getElementById('val-phone').value;
 
+      let unitLevelDetails = '';
+      if ((type === 'HDB' || type === 'Condo') && (level || unit)) {
+        unitLevelDetails = `%0A• Floor Level: ${level}${unit ? ' (Unit: ' + unit + ')' : ''}`;
+      }
+
       const message = `Hi Jason, I would like to request a Free Property Valuation Report for my property:%0A%0A` +
                       `• Type: ${type}%0A` +
-                      `• Address: ${address} (Postal: ${postal})%0A` +
-                      `• Size: ${sqft} sqft (${beds})%0A` +
+                      `• Address: ${address} (Postal: ${postal})${unitLevelDetails}%0A` +
+                      `• Size & Layout: ${sqft} sqft (${beds})%0A` +
                       `• Name: ${name}%0A` +
                       `• Contact: ${phone}`;
 
