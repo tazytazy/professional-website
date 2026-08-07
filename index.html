@@ -16,10 +16,6 @@
   <meta property="og:type" content="website" />
   
   <!-- ==================== META (FACEBOOK/INSTAGRAM) PIXEL DATASET ==================== -->
-  <!-- 
-    To activate Meta Pixel tracking:
-    1. Replace 'YOUR_PIXEL_DATASET_ID' below with your actual Meta Dataset ID (e.g. 1234567890123456).
-  -->
   <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -30,10 +26,10 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     
-    // Uncomment and replace with your ID:
-    // fbq('init', 'YOUR_PIXEL_DATASET_ID');
-    // fbq('track', 'PageView');
+    fbq('init', '4336771093270227');
+    fbq('track', 'PageView');
   </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4336771093270227&ev=PageView&noscript=1"/></noscript>
   <!-- ==================== END META PIXEL ==================== -->
   
   <!-- Tailwind CSS CDN -->
@@ -1493,6 +1489,10 @@
                       `• Size & Layout: ${sqft} sqft (${beds})%0A` +
                       `• Name: ${name}%0A` +
                       `• Contact: ${phone}`;
+
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead', { content_name: type, currency: 'SGD' });
+      }
 
       window.open(`https://wa.me/6580855477?text=${message}`, '_blank');
     }
