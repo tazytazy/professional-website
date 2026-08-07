@@ -15,6 +15,27 @@
   <meta property="og:description" content="Top 1% Producer. $30M+ Transactions. Free Instant Home Valuation & Singapore Property Calculators." />
   <meta property="og:type" content="website" />
   
+  <!-- ==================== META (FACEBOOK/INSTAGRAM) PIXEL DATASET ==================== -->
+  <!-- 
+    To activate Meta Pixel tracking:
+    1. Replace 'YOUR_PIXEL_DATASET_ID' below with your actual Meta Dataset ID (e.g. 1234567890123456).
+  -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    
+    // Uncomment and replace with your ID:
+    // fbq('init', 'YOUR_PIXEL_DATASET_ID');
+    // fbq('track', 'PageView');
+  </script>
+  <!-- ==================== END META PIXEL ==================== -->
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
