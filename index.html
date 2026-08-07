@@ -1468,33 +1468,35 @@
 
     function handleValuationSubmit(event) {
       event.preventDefault();
-      const type = document.getElementById('selected-property-type').value;
-      const address = document.getElementById('val-address').value;
-      const postal = document.getElementById('val-postal').value;
-      const sqft = document.getElementById('val-sqft').value;
-      const beds = document.getElementById('val-beds').value;
+      const type = document.getElementById('selected-property-type').value || '';
+      const address = document.getElementById('val-address').value.trim() || '';
+      const postal = document.getElementById('val-postal').value.trim() || '';
+      const sqft = document.getElementById('val-sqft').value || '';
+      const beds = document.getElementById('val-beds').value || '';
       const level = document.getElementById('val-level') ? document.getElementById('val-level').value : '';
-      const unit = document.getElementById('val-unit') ? document.getElementById('val-unit').value : '';
-      const name = document.getElementById('val-name').value;
-      const phone = document.getElementById('val-phone').value;
+      const unit = document.getElementById('val-unit') ? document.getElementById('val-unit').value.trim() : '';
+      const name = document.getElementById('val-name').value.trim() || '';
+      const phone = document.getElementById('val-phone').value.trim() || '';
 
-      let unitLevelDetails = '';
-      if ((type === 'HDB' || type === 'Condo') && (level || unit)) {
-        unitLevelDetails = `%0A• Floor Level: ${level}${unit ? ' (Unit: ' + unit + ')' : ''}`;
+      let text = `Hi Jason, I would like to request a Free Property Valuation Report for my property:\n\n` +
+                 `• Property Type: ${type}\n` +
+                 `• Address: ${address}${postal ? ' (Postal: ' + postal + ')' : ''}\n`;
+
+      if (type === 'HDB' || type === 'Condo') {
+        if (level) text += `• Floor Level: ${level}\n`;
+        if (unit) text += `• Unit Number: ${unit}\n`;
       }
 
-      const message = `Hi Jason, I would like to request a Free Property Valuation Report for my property:%0A%0A` +
-                      `• Type: ${type}%0A` +
-                      `• Address: ${address} (Postal: ${postal})${unitLevelDetails}%0A` +
-                      `• Size & Layout: ${sqft} sqft (${beds})%0A` +
-                      `• Name: ${name}%0A` +
-                      `• Contact: ${phone}`;
+      text += `• Size & Layout: ${sqft} sqft (${beds})\n` +
+              `• Owner Name: ${name}\n` +
+              `• Mobile Contact: ${phone}`;
 
       if (typeof fbq === 'function') {
         fbq('track', 'Lead', { content_name: type, currency: 'SGD' });
       }
 
-      window.open(`https://wa.me/6580855477?text=${message}`, '_blank');
+      const encodedMessage = encodeURIComponent(text);
+      window.open(`https://wa.me/6580855477?text=${encodedMessage}`, '_blank');
     }
 
 
