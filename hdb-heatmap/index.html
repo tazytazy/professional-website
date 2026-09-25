@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Singapore HDB Rental Heatmap (Past 1 Year)</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- Leaflet Heatmap Plugin -->
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-slate-900 text-slate-100 flex flex-col h-screen overflow-hidden font-sans">
+
+  <!-- Top Header Navigation Bar -->
+  <header class="bg-slate-800 border-b border-slate-700 px-4 py-3 flex items-center justify-between z-20 shadow-md">
+    <div class="flex items-center space-x-3">
+      <div class="bg-red-600 text-white p-2 rounded-lg font-bold shadow-lg flex items-center space-x-2">
+        <i data-lucide="map-pin" class="w-5 h-5"></i>
+        <span class="tracking-wide">HDB HEATMAP</span>
+      </div>
+      <div>
+        <h1 class="text-lg font-semibold text-white leading-tight">Singapore HDB Rental Heatmap</h1>
+        <p class="text-xs text-slate-400 flex items-center space-x-1">
+          <i data-lucide="calendar" class="w-3 h-3 inline"></i>
+          <span>Analysis Period: <span id="hdr-date-range" class="text-amber-400 font-medium">Past 12 Months (2025-09 to 2026-08)</span></span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Quick Stats in Header -->
+    <div class="hidden md:flex items-center space-x-6 text-sm">
+      <div class="bg-slate-900/60 px-3 py-1.5 rounded-lg border border-slate-700/50">
+        <span class="text-xs text-slate-400 block">Total Rental Volume</span>
+        <span id="stat-total-volume" class="text-base font-bold text-amber-400">Loading...</span>
+      </div>
+      <div class="bg-slate-900/60 px-3 py-1.5 rounded-lg border border-slate-700/50">
+        <span class="text-xs text-slate-400 block">#1 Rental Town</span>
+        <span id="stat-top-town" class="text-base font-bold text-red-400">Loading...</span>
+      </div>
+      <div class="bg-slate-900/60 px-3 py-1.5 rounded-lg border border-slate-700/50">
+        <span class="text-xs text-slate-400 block">Avg Monthly Rent</span>
+        <span id="stat-avg-rent" class="text-base font-bold text-emerald-400">Loading...</span>
+      </div>
+      <button id="btn-toggle-analytics" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold px-4 py-2 rounded-lg text-xs flex items-center space-x-1.5 shadow-md transition">
+        <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+        <span>Analytics Dashboard</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Body Layout -->
+  <div class="flex-1 flex overflow-hidden relative">
+
+    <!-- Sidebar Control & Leaderboard Panel -->
+    <aside id="sidebar" class="w-96 bg-slate-800 border-r border-slate-700 flex flex-col z-10 shadow-xl transition-all duration-300">
+      
+      <!-- Tab Navigation -->
+      <div class="flex border-b border-slate-700 bg-slate-850">
+        <button id="tab-btn-filters" class="flex-1 py-2.5 text-xs font-semibold text-amber-400 border-b-2 border-amber-400 flex items-center justify-center space-x-1.5">
+          <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+          <span>Heatmap & Filters</span>
+        </button>
+        <button id="tab-btn-leaderboard" class="flex-1 py-2.5 text-xs font-semibold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center justify-center space-x-1.5">
+          <i data-lucide="trophy" class="w-3.5 h-3.5"></i>
+          <span>Hotspot Leaderboard</span>
+        </button>
+      </div>
+
+      <!-- Tab Content Area -->
+      <div class="flex-1 overflow-y-auto p-4 space-y-5 custom-scrollbar">
+
+        <!-- TAB 1: FILTERS & MAP CONTROLS -->
+        <div id="tab-content-filters" class="space-y-5">
+
+          <!-- Time Horizon Slider (Past 1 to 5+ Years) -->
+          <div class="bg-slate-900/70 p-3.5 rounded-xl border border-slate-700 space-y-2.5">
+            <div class="flex justify-between items-center">
+              <label class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-1.5">
+                <i data-lucide="calendar-range" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Time Horizon</span>
+              </label>
+              <span id="val-year-horizon" class="text-xs font-bold text-amber-400">Past 1 Year</span>
+            </div>
+            <input type="range" id="slider-year-horizon" min="1" max="5" step="1" value="1" class="w-full accent-amber-500 cursor-pointer h-1.5 bg-slate-700 rounded-lg" />
+            <div class="flex justify-between text-[10px] text-slate-400 font-mono font-semibold">
+              <span>1 Yr</span>
+              <span>2 Yrs</span>
+              <span>3 Yrs</span>
+              <span>4 Yrs</span>
+              <span>5 Yrs</span>
+            </div>
+          </div>
+
+          <!-- Basemap Tile Selector (100% Free / No API Key) -->
+          <div class="bg-slate-900/70 p-3.5 rounded-xl border border-slate-700 space-y-2">
+            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block flex items-center space-x-1.5">
+              <i data-lucide="globe" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Map Style (No API Key Required)</span>
+            </label>
+            <div class="grid grid-cols-3 gap-1.5 text-[11px]">
+              <button id="tile-dark" class="py-1.5 px-2 rounded-lg font-semibold bg-amber-500 text-slate-950 shadow border border-amber-400">Dark</button>
+              <button id="tile-osm" class="py-1.5 px-2 rounded-lg font-semibold bg-slate-800 text-slate-300 hover:bg-slate-750 border border-slate-700">Standard</button>
+              <button id="tile-satellite" class="py-1.5 px-2 rounded-lg font-semibold bg-slate-800 text-slate-300 hover:bg-slate-750 border border-slate-700">Satellite</button>
+            </div>
+          </div>
+
+          <!-- Layer Mode Selection -->
+          <div class="bg-slate-900/70 p-3.5 rounded-xl border border-slate-700 space-y-2">
+            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block flex items-center space-x-1.5">
+              <i data-lucide="layers" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Heatmap Mode</span>
+            </label>
+            <div class="grid grid-cols-2 gap-2">
+              <button id="mode-volume" class="py-2 px-3 text-xs rounded-lg font-semibold bg-amber-500 text-slate-950 shadow border border-amber-400 flex items-center justify-center space-x-1">
+                <i data-lucide="flame" class="w-3.5 h-3.5"></i>
+                <span>Rental Volume</span>
+              </button>
+              <button id="mode-price" class="py-2 px-3 text-xs rounded-lg font-semibold bg-slate-800 text-slate-300 hover:bg-slate-750 border border-slate-700 flex items-center justify-center space-x-1">
+                <i data-lucide="dollar-sign" class="w-3.5 h-3.5"></i>
+                <span>Avg Monthly Rent</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Heatmap Radius & Intensity Sliders -->
+          <div class="bg-slate-900/70 p-3.5 rounded-xl border border-slate-700 space-y-3">
+            <div class="flex justify-between items-center">
+              <label class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-1.5">
+                <i data-lucide="settings-2" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Heatmap Radius</span>
+              </label>
+              <span id="val-radius" class="text-xs font-semibold text-amber-400">25 px</span>
+            </div>
+            <input type="range" id="slider-radius" min="10" max="60" value="25" class="w-full accent-amber-500 cursor-pointer h-1.5 bg-slate-700 rounded-lg" />
+
+            <div class="flex justify-between items-center pt-2">
+              <label class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-1.5">
+                <i data-lucide="sun" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Heatmap Blur</span>
+              </label>
+              <span id="val-blur" class="text-xs font-semibold text-amber-400">15 px</span>
+            </div>
+            <input type="range" id="slider-blur" min="5" max="35" value="15" class="w-full accent-amber-500 cursor-pointer h-1.5 bg-slate-700 rounded-lg" />
+          </div>
+
+          <!-- Town Filter Dropdown -->
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center justify-between">
+              <span class="flex items-center space-x-1.5">
+                <i data-lucide="map" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Filter By HDB Town</span>
+              </span>
+              <button id="btn-reset-town" class="text-[10px] text-amber-400 hover:underline lowercase font-normal">reset</button>
+            </label>
+            <select id="select-town" class="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-2 text-xs focus:ring-1 focus:ring-amber-500 focus:outline-none">
+              <option value="ALL">All Singapore Towns (27 Towns)</option>
+            </select>
+          </div>
+
+          <!-- Flat Type Filter Buttons -->
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block flex items-center space-x-1.5">
+              <i data-lucide="home" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Flat Type</span>
+            </label>
+            <div id="flat-type-buttons" class="grid grid-cols-3 gap-1.5">
+              <button data-type="ALL" class="flat-btn py-1.5 text-xs rounded-lg bg-amber-500 text-slate-950 font-bold border border-amber-400">All</button>
+              <button data-type="1-ROOM" class="flat-btn py-1.5 text-xs rounded-lg bg-slate-900 text-slate-300 hover:bg-slate-750 border border-slate-700">1-Room</button>
+              <button data-type="2-ROOM" class="flat-btn py-1.5 text-xs rounded-lg bg-slate-900 text-slate-300 hover:bg-slate-750 border border-slate-700">2-Room</button>
+              <button data-type="3-ROOM" class="flat-btn py-1.5 text-xs rounded-lg bg-slate-900 text-slate-300 hover:bg-slate-750 border border-slate-700">3-Room</button>
+              <button data-type="4-ROOM" class="flat-btn py-1.5 text-xs rounded-lg bg-slate-900 text-slate-300 hover:bg-slate-750 border border-slate-700">4-Room</button>
+              <button data-type="5-ROOM" class="flat-btn py-1.5 text-xs rounded-lg bg-slate-900 text-slate-300 hover:bg-slate-750 border border-slate-700">5-Room</button>
+              <button data-type="EXECUTIVE" class="flat-btn py-1.5 text-xs rounded-lg bg-slate-900 text-slate-300 hover:bg-slate-750 border border-slate-700 col-span-3">Executive</button>
+            </div>
+          </div>
+
+          <!-- Price Range Filter Slider -->
+          <div class="bg-slate-900/70 p-3.5 rounded-xl border border-slate-700 space-y-2">
+            <div class="flex justify-between items-center">
+              <label class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-1.5">
+                <i data-lucide="tag" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Max Rent Filter</span>
+              </label>
+              <span id="val-price-filter" class="text-xs font-semibold text-emerald-400">Any Price</span>
+            </div>
+            <input type="range" id="slider-price" min="1000" max="6000" step="250" value="6000" class="w-full accent-emerald-500 cursor-pointer h-1.5 bg-slate-700 rounded-lg" />
+          </div>
+
+          <!-- Reset All Filters Button -->
+          <button id="btn-reset-all" class="w-full bg-slate-700 hover:bg-slate-650 text-slate-200 text-xs font-semibold py-2.5 rounded-lg flex items-center justify-center space-x-1.5 transition border border-slate-600">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+            <span>Reset All Filters</span>
+          </button>
+
+        </div>
+
+        <!-- TAB 2: HOTSPOT LEADERBOARD -->
+        <div id="tab-content-leaderboard" class="space-y-4 hidden">
+          
+          <div class="flex justify-between items-center">
+            <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center space-x-1">
+              <i data-lucide="flame" class="w-4 h-4 text-red-500"></i>
+              <span>Top Rental Hotspots</span>
+            </h3>
+            <span class="text-[10px] text-slate-400">Past 12 Months</span>
+          </div>
+
+          <!-- Sub-tab for Leaderboard level (Towns / Streets / Blocks) -->
+          <div class="grid grid-cols-3 gap-1 bg-slate-900 p-1 rounded-lg border border-slate-700 text-center text-xs">
+            <button id="lb-tab-towns" class="py-1 rounded bg-amber-500 text-slate-950 font-bold">Towns</button>
+            <button id="lb-tab-streets" class="py-1 rounded text-slate-400 hover:text-white">Streets</button>
+            <button id="lb-tab-blocks" class="py-1 rounded text-slate-400 hover:text-white">Blocks</button>
+          </div>
+
+          <!-- Leaderboard Items Container -->
+          <div id="leaderboard-items" class="space-y-2">
+            <!-- Dynamically populated -->
+          </div>
+
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- Main Map View Area -->
+    <main class="flex-1 relative">
+      
+      <!-- Leaflet Map Div -->
+      <div id="map" class="w-full h-full bg-slate-950"></div>
+
+      <!-- Map Legend Overlay -->
+      <div class="absolute bottom-6 right-6 bg-slate-800/90 backdrop-blur border border-slate-700 p-3 rounded-xl shadow-2xl z-10 text-xs w-64 space-y-2">
+        <div class="flex justify-between items-center">
+          <span id="legend-title" class="font-bold text-slate-200">Rental Volume Density</span>
+          <span class="text-[10px] text-slate-400">Singapore</span>
+        </div>
+        <div class="h-3 rounded-md w-full bg-gradient-to-r from-blue-600 via-cyan-400 via-green-400 via-yellow-400 to-red-600 border border-slate-600"></div>
+        <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+          <span id="legend-min">Low Volume</span>
+          <span id="legend-max">High Hotspot</span>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Analytics Modal Drawer -->
+  <div id="analytics-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[99999] flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-850 border border-slate-700 rounded-2xl w-full max-w-5xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      
+      <!-- Modal Header -->
+      <div class="bg-slate-800 px-6 py-4 border-b border-slate-700 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+          <i data-lucide="bar-chart-3" class="w-5 h-5 text-amber-400"></i>
+          <h2 class="text-base font-bold text-white">Singapore HDB Rental Insights & Analytics</h2>
+        </div>
+        <button id="btn-close-analytics" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-700">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <!-- Modal Charts Grid Body -->
+      <div class="flex-1 overflow-y-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-6 custom-scrollbar">
+        
+        <!-- Chart 1: Rental Volume by Town -->
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 space-y-2">
+          <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center space-x-1.5">
+            <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+            <span>Top HDB Towns by Rental Volume</span>
+          </h3>
+          <div class="h-64">
+            <canvas id="chart-town-volume"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Monthly Rental Trend -->
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 space-y-2">
+          <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center space-x-1.5">
+            <i data-lucide="trending-up" class="w-4 h-4"></i>
+            <span>12-Month Rental Volume Trend</span>
+          </h3>
+          <div class="h-64">
+            <canvas id="chart-monthly-trend"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 3: Flat Type Breakdown -->
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 space-y-2">
+          <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center space-x-1.5">
+            <i data-lucide="pie-chart" class="w-4 h-4"></i>
+            <span>Flat Type Share (% of Total Rentals)</span>
+          </h3>
+          <div class="h-64 flex items-center justify-center">
+            <canvas id="chart-flat-types"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 4: Average Monthly Rent by Town -->
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 space-y-2">
+          <h3 class="text-xs font-bold text-purple-400 uppercase tracking-wider flex items-center space-x-1.5">
+            <i data-lucide="dollar-sign" class="w-4 h-4"></i>
+            <span>Average Monthly Rent ($) by Town</span>
+          </h3>
+          <div class="h-64">
+            <canvas id="chart-town-price"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Custom App Scripts -->
+  <script src="js/map.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
