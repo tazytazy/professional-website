@@ -99,6 +99,72 @@ function updateHeaderKPIs(summary) {
 }
 
 /**
+ * Filter raw records dynamically based on selected Time Horizon (1 to 5 Years slider)
+ */
+function getFilteredByHorizon(rawRecords, horizon) {
+  if (!rawRecords || rawRecords.length === 0) return [];
+
+  // Get all unique approval dates sorted in descending order (e.g. 2026-08, 2026-07...)
+  const uniqueDates = Array.from(new Set(rawRecords.map(r => r.rent_approval_date))).filter(Boolean).sort().reverse();
+  if (uniqueDates.length === 0) return rawRecords;
+
+  const totalMonths = uniqueDates.length;
+  const hNum = parseInt(horizon) || 1;
+
+  // Proportionally scale how many months of dataset records to include based on slider value (1..5)
+  let monthsToInclude = Math.ceil((hNum / 5) * totalMonths);
+  if (hNum >= 5) monthsToInclude = totalMonths;
+
+  const allowedDates = new Set(uniqueDates.slice(0, monthsToInclude));
+
+  return rawRecords.filter(r => allowedDates.has(r.rent_approval_date));
+}
+
+/**
+ * Update Header KPIs dynamically based on current filtered dataset
+ */
+function updateFilteredKPIs(horizonFiltered, filtered) {
+  if (!horizonFiltered || horizonFiltered.length === 0) return;
+
+  const dates = horizonFiltered.map(r => r.rent_approval_date).filter(Boolean).sort();
+  const startDate = dates[0] || '';
+  const endDate = dates[dates.length - 1] || '';
+
+  const totalVol = filtered.length;
+  let rentSum = 0;
+  const townCounts = new Map();
+
+  filtered.forEach(r => {
+    const rent = parseFloat(r.monthly_rent || 0);
+    rentSum += rent;
+    if (r.town) townCounts.set(r.town, (townCounts.get(r.town) || 0) + 1);
+  });
+
+  const avgRent = totalVol > 0 ? Math.round(rentSum / totalVol) : 0;
+  let topTown = '-';
+  let maxCount = 0;
+  townCounts.forEach((cnt, t) => {
+    if (cnt > maxCount) {
+      maxCount = cnt;
+      topTown = t;
+    }
+  });
+
+  const elVol = document.getElementById('stat-total-volume');
+  const elTop = document.getElementById('stat-top-town');
+  const elAvg = document.getElementById('stat-avg-rent');
+  const elDate = document.getElementById('hdr-date-range');
+
+  if (elVol) elVol.textContent = `${totalVol.toLocaleString()} Approvals`;
+  if (elTop) elTop.textContent = topTown;
+  if (elAvg) elAvg.textContent = totalVol > 0 ? `$${avgRent.toLocaleString()} / mo` : '$0 / mo';
+  if (elDate && startDate && endDate) {
+    const labelYears = currentFilters.horizon === '5' ? 'Past 5+ Years (Full)' : `Past ${currentFilters.horizon} Year${parseInt(currentFilters.horizon) > 1 ? 's' : ''}`;
+    elDate.textContent = `${labelYears} (${startDate} to ${endDate})`;
+  }
+}
+
+/**
  * Apply Active Filters to Dataset & Re-render Map & Leaderboard
  */
 function applyFilters() {
@@ -107,14 +173,20 @@ function applyFilters() {
 
   const raw = active.raw_records || [];
   
-  // 1. Filter Raw Records
-  const filtered = raw.filter(r => {
+  // 1. Filter Raw Records by Time Horizon Slider
+  const horizonFiltered = getFilteredByHorizon(raw, currentFilters.horizon);
+
+  // 2. Filter by Town, Flat Type, Max Rent
+  const filtered = horizonFiltered.filter(r => {
     const rent = float(r.monthly_rent || 0);
     if (currentFilters.town !== 'ALL' && r.town !== currentFilters.town) return false;
     if (currentFilters.flatType !== 'ALL' && r.flat_type !== currentFilters.flatType) return false;
     if (rent > currentFilters.maxRent) return false;
     return true;
   });
+
+  // 3. Update Header KPIs & Date Range Badge
+  updateFilteredKPIs(horizonFiltered, filtered);
 
   // 2. Generate Heatmap Points
   const locationMap = new Map();
