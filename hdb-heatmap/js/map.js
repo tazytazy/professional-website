@@ -20,9 +20,9 @@ function initMap() {
     maxZoom: 18
   });
 
-  // Free Dark Basemap (Esri World Dark Gray Canvas - No API Key Required)
-  tileLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+  // Default Standard Basemap (OpenStreetMap)
+  tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     maxZoom: 18
   }).addTo(map);
 
@@ -33,26 +33,21 @@ function initMap() {
 }
 
 /**
- * Change Map Basemap Style (Dark, OpenStreetMap, Satellite)
+ * Change Map Basemap Style (Standard, Satellite)
  */
 function setMapStyle(style) {
   if (!map || !tileLayer) return;
   map.removeLayer(tileLayer);
 
-  if (style === 'osm') {
-    tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      maxZoom: 18
-    });
-  } else if (style === 'satellite') {
+  if (style === 'satellite') {
     tileLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Tiles &copy; Esri',
       maxZoom: 18
     });
   } else {
-    // Dark
-    tileLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-      attribution: 'Tiles &copy; Esri',
+    // Standard OpenStreetMap
+    tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       maxZoom: 18
     });
   }

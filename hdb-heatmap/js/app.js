@@ -424,19 +424,17 @@ function setupEventListeners() {
     });
   }
 
-  // Basemap Tile Style Switcher
-  const btnDark = document.getElementById('tile-dark');
+  // Basemap Tile Style Switcher (Standard & Satellite)
   const btnOsm = document.getElementById('tile-osm');
   const btnSat = document.getElementById('tile-satellite');
 
   const setTileBtnActive = (activeBtn) => {
-    [btnDark, btnOsm, btnSat].forEach(b => {
+    [btnOsm, btnSat].forEach(b => {
       if (b) b.className = 'py-1.5 px-2 rounded-lg font-semibold bg-slate-800 text-slate-300 hover:bg-slate-750 border border-slate-700';
     });
     if (activeBtn) activeBtn.className = 'py-1.5 px-2 rounded-lg font-semibold bg-amber-500 text-slate-950 shadow border border-amber-400';
   };
 
-  if (btnDark) btnDark.addEventListener('click', () => { setTileBtnActive(btnDark); setMapStyle('dark'); });
   if (btnOsm) btnOsm.addEventListener('click', () => { setTileBtnActive(btnOsm); setMapStyle('osm'); });
   if (btnSat) btnSat.addEventListener('click', () => { setTileBtnActive(btnSat); setMapStyle('satellite'); });
 
