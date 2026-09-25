@@ -368,9 +368,24 @@ function setupEventListeners() {
   if (btnOsm) btnOsm.addEventListener('click', () => { setTileBtnActive(btnOsm); setMapStyle('osm'); });
   if (btnSat) btnSat.addEventListener('click', () => { setTileBtnActive(btnSat); setMapStyle('satellite'); });
 
+  // Minimize / Expand Legend Overlay Toggle
+  const btnToggleLegend = document.getElementById('btn-toggle-legend');
+  const legendBody = document.getElementById('legend-content-body');
+  const legendToggleText = document.getElementById('legend-toggle-text');
+  
+  if (btnToggleLegend && legendBody) {
+    btnToggleLegend.addEventListener('click', () => {
+      const isHidden = legendBody.classList.toggle('hidden');
+      if (legendToggleText) {
+        legendToggleText.textContent = isHidden ? 'Expand' : 'Minimize';
+      }
+    });
+  }
+
   // Mode Switchers
   const btnVolume = document.getElementById('mode-volume');
   const btnPrice = document.getElementById('mode-price');
+  const legendBar = document.getElementById('legend-bar');
 
   btnVolume.addEventListener('click', () => {
     currentFilters.metric = 'volume';
@@ -379,6 +394,7 @@ function setupEventListeners() {
     document.getElementById('legend-title').textContent = 'Rental Volume Density';
     document.getElementById('legend-min').textContent = 'Low Volume';
     document.getElementById('legend-max').textContent = 'High Hotspot';
+    if (legendBar) legendBar.className = 'h-3 rounded-md w-full bg-gradient-to-r from-blue-600 via-cyan-400 via-yellow-400 to-red-600 border border-slate-600';
     applyFilters();
   });
 
@@ -389,6 +405,7 @@ function setupEventListeners() {
     document.getElementById('legend-title').textContent = 'Average Monthly Rent ($)';
     document.getElementById('legend-min').textContent = '< $2,000 / mo';
     document.getElementById('legend-max').textContent = '> $4,000 / mo';
+    if (legendBar) legendBar.className = 'h-3 rounded-md w-full bg-gradient-to-r from-sky-600 via-purple-500 via-rose-500 to-red-600 border border-slate-600';
     applyFilters();
   });
 

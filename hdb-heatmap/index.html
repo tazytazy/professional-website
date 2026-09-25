@@ -244,15 +244,19 @@
       <div id="map" class="w-full h-full bg-slate-950"></div>
 
       <!-- Map Legend Overlay -->
-      <div class="absolute bottom-6 right-6 bg-slate-800/90 backdrop-blur border border-slate-700 p-3 rounded-xl shadow-2xl z-10 text-xs w-64 space-y-2">
+      <div id="map-legend-box" class="absolute bottom-8 right-6 bg-slate-800/95 backdrop-blur-md border border-slate-700 p-3.5 rounded-xl shadow-2xl z-[1000] text-xs w-64 space-y-2.5 transition-all">
         <div class="flex justify-between items-center">
           <span id="legend-title" class="font-bold text-slate-200">Rental Volume Density</span>
-          <span class="text-[10px] text-slate-400">Singapore</span>
+          <button id="btn-toggle-legend" class="text-slate-400 hover:text-white p-0.5 rounded text-[10px] flex items-center space-x-1 bg-slate-700/60 hover:bg-slate-700 px-1.5 py-0.5 transition">
+            <span id="legend-toggle-text">Minimize</span>
+          </button>
         </div>
-        <div class="h-3 rounded-md w-full bg-gradient-to-r from-blue-600 via-cyan-400 via-green-400 via-yellow-400 to-red-600 border border-slate-600"></div>
-        <div class="flex justify-between text-[10px] text-slate-400 font-mono">
-          <span id="legend-min">Low Volume</span>
-          <span id="legend-max">High Hotspot</span>
+        <div id="legend-content-body" class="space-y-2">
+          <div id="legend-bar" class="h-3 rounded-md w-full bg-gradient-to-r from-blue-600 via-cyan-400 via-yellow-400 to-red-600 border border-slate-600"></div>
+          <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+            <span id="legend-min">Low Volume</span>
+            <span id="legend-max">High Hotspot</span>
+          </div>
         </div>
       </div>
 

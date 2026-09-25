@@ -48,3 +48,28 @@
 .bg-slate-750 {
   background-color: #263346;
 }
+
+/* Ensure Map Legend box is ALWAYS on top of Leaflet layers & panes */
+#map-legend-box {
+  z-index: 1000 !important;
+  pointer-events: auto !important;
+}
+
+/* Position Leaflet attribution cleanly below or unobtrusively */
+.leaflet-bottom.leaflet-right {
+  z-index: 400 !important;
+  margin-bottom: 2px !important;
+  margin-right: 2px !important;
+}
+.leaflet-control-attribution {
+  background: rgba(15, 23, 42, 0.75) !important;
+  color: #64748b !important;
+  font-size: 8px !important;
+  padding: 1px 5px !important;
+  border-radius: 4px !important;
+  backdrop-filter: blur(4px);
+}
+.leaflet-control-attribution a {
+  color: #94a3b8 !important;
+}
+
