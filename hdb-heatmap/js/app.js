@@ -1,6 +1,10 @@
 // Main Application Controller with Multi-Year Horizon Support
 
 let globalData = null;
+let blockIndex = new Map();
+let townIndex = new Map();
+let streetIndex = new Map();
+
 let currentFilters = {
   horizon: '1', // '1', '2', '3', '4', or '5' years
   town: 'ALL',
@@ -27,6 +31,49 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
+ * Build fast O(1) lookup indexes for blocks, towns, and streets
+ */
+function buildDataIndexes(active) {
+  if (!active) return;
+  blockIndex.clear();
+  townIndex.clear();
+  streetIndex.clear();
+
+  (active.blocks || []).forEach(b => {
+    blockIndex.set(`${b.block}|${b.street}`, b);
+  });
+
+  (active.towns || []).forEach(t => {
+    townIndex.set(t.name, t);
+  });
+
+  (active.streets || []).forEach(s => {
+    streetIndex.set(s.street, s);
+  });
+}
+
+function dismissLoadingSpinner() {
+  const mapLoading = document.getElementById('map-loading');
+  if (mapLoading) {
+    mapLoading.classList.add('opacity-0', 'pointer-events-none');
+    setTimeout(() => {
+      if (mapLoading.parentNode) mapLoading.remove();
+    }, 400);
+  }
+}
+
+function showToastNotification(msg) {
+  const toast = document.createElement('div');
+  toast.className = 'fixed top-16 left-1/2 -translate-x-1/2 z-[10000] bg-slate-800/95 border border-amber-500/50 text-amber-300 text-xs px-4 py-2 rounded-xl shadow-2xl backdrop-blur transition-opacity duration-300 max-w-[90vw] text-center';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add('opacity-0');
+    setTimeout(() => { if (toast.parentNode) toast.remove(); }, 400);
+  }, 4000);
+}
+
+/**
  * Get active data structure based on selected time horizon slider
  */
 function getActiveData() {
@@ -41,15 +88,41 @@ function getActiveData() {
  * Fetch HDB Rental Data from API endpoint
  */
 async function fetchRentalData() {
+  // Safety timer: Always dismiss loading overlay after at most 2.5 seconds
+  // so the interactive Leaflet map tiles are NEVER permanently blocked
+  const safetyTimer = setTimeout(() => {
+    dismissLoadingSpinner();
+  }, 2500);
+
   try {
-    let resp = await fetch('data/hdb_rentals.json');
-    if (!resp.ok) {
-      resp = await fetch('./data/hdb_rentals.json');
+    let resp = null;
+    const candidateUrls = [
+      '/hdb-heatmap/data/hdb_rentals.json',
+      'data/hdb_rentals.json',
+      './data/hdb_rentals.json'
+    ];
+
+    for (const url of candidateUrls) {
+      try {
+        const r = await fetch(url);
+        if (r.ok) {
+          resp = r;
+          break;
+        }
+      } catch (e) {
+        // try next candidate
+      }
     }
-    if (!resp.ok) throw new Error('API request failed with status ' + resp.status);
+
+    if (!resp || !resp.ok) {
+      throw new Error('API request failed');
+    }
+
     globalData = await resp.json();
+    clearTimeout(safetyTimer);
 
     const active = getActiveData();
+    buildDataIndexes(active);
 
     // Populate Town Dropdown Options
     populateTownDropdown(active.towns || []);
@@ -60,15 +133,8 @@ async function fetchRentalData() {
     // Initial UI Render
     applyFilters();
 
-    // Render Analytics Dashboard Charts
-    renderCharts(active);
-
-    // Hide Map Loading Spinner Overlay
-    const mapLoading = document.getElementById('map-loading');
-    if (mapLoading) {
-      mapLoading.classList.add('opacity-0', 'pointer-events-none');
-      setTimeout(() => mapLoading.remove(), 400);
-    }
+    // Dismiss loading spinner immediately
+    dismissLoadingSpinner();
 
     // Trigger Leaflet viewport refresh
     if (window.map) {
@@ -78,13 +144,9 @@ async function fetchRentalData() {
 
   } catch (err) {
     console.error('Error loading rental data:', err);
-    const mapLoading = document.getElementById('map-loading');
-    if (mapLoading) {
-      mapLoading.innerHTML = `
-        <div class="text-amber-400 font-bold text-sm">Unable to load dataset</div>
-        <div class="text-xs text-slate-400">Please check your internet connection and refresh.</div>
-      `;
-    }
+    clearTimeout(safetyTimer);
+    dismissLoadingSpinner();
+    showToastNotification('Unable to load latest transactions. Showing offline map.');
   }
 }
 
@@ -218,7 +280,7 @@ function applyFilters() {
   filtered.forEach(r => {
     const key = `${r.block} ${r.street_name}`;
     if (!locationMap.has(key)) {
-      const blkInfo = (active.blocks || []).find(b => b.block === r.block && b.street === r.street_name);
+      const blkInfo = blockIndex.get(`${r.block}|${r.street_name}`);
       const lat = blkInfo ? blkInfo.lat : 1.3521;
       const lng = blkInfo ? blkInfo.lng : 103.8198;
 
@@ -290,7 +352,7 @@ function applyFilters() {
 
   // If specific town selected, pan map to town
   if (currentFilters.town !== 'ALL') {
-    const townObj = (active.towns || []).find(t => t.name === currentFilters.town);
+    const townObj = townIndex.get(currentFilters.town);
     if (townObj) flyToLocation(townObj.lat, townObj.lng, 14);
   }
 }
@@ -302,6 +364,7 @@ function renderLeaderboard(filteredRecords) {
   const container = document.getElementById('leaderboard-items');
   container.innerHTML = '';
   const active = getActiveData();
+  if (!active) return;
 
   const tab = currentFilters.leaderboardTab;
 
@@ -316,7 +379,7 @@ function renderLeaderboard(filteredRecords) {
     });
 
     const sorted = Array.from(townMap.entries()).map(([town, data]) => {
-      const info = (active.towns || []).find(x => x.name === town) || {};
+      const info = townIndex.get(town) || {};
       return {
         name: town,
         count: data.count,
@@ -344,7 +407,7 @@ function renderLeaderboard(filteredRecords) {
     });
 
     const sorted = Array.from(streetMap.values()).map(data => {
-      const info = (active.streets || []).find(x => x.street === data.street) || {};
+      const info = streetIndex.get(data.street) || {};
       return {
         name: `${data.street}`,
         sub: data.town,
@@ -374,7 +437,7 @@ function renderLeaderboard(filteredRecords) {
     });
 
     const sorted = Array.from(blockMap.values()).map(data => {
-      const info = (active.blocks || []).find(x => x.block === data.block && x.street === data.street) || {};
+      const info = blockIndex.get(`${data.block}|${data.street}`) || {};
       return {
         name: `Blk ${data.block} ${data.street}`,
         sub: data.town,
@@ -438,10 +501,14 @@ function setupEventListeners() {
       
       const active = getActiveData();
       if (active) {
+        buildDataIndexes(active);
         populateTownDropdown(active.towns || []);
         updateHeaderKPIs(active.summary);
         applyFilters();
-        renderCharts(active);
+        const modal = document.getElementById('analytics-modal');
+        if (modal && !modal.classList.contains('hidden')) {
+          try { renderCharts(active); } catch (e) { console.warn('Charts error:', e); }
+        }
       }
     });
   }
@@ -574,11 +641,15 @@ function setupEventListeners() {
 
     const active = getActiveData();
     if (active) {
+      buildDataIndexes(active);
       populateTownDropdown(active.towns || []);
       updateHeaderKPIs(active.summary);
       flyToLocation(1.3521, 103.8198, 12);
       applyFilters();
-      renderCharts(active);
+      const modal = document.getElementById('analytics-modal');
+      if (modal && !modal.classList.contains('hidden')) {
+        try { renderCharts(active); } catch (e) { console.warn('Charts error:', e); }
+      }
     }
   });
 
@@ -626,7 +697,9 @@ function setupEventListeners() {
       modal.classList.remove('hidden');
       setTimeout(() => {
         const active = getActiveData();
-        if (active) renderCharts(active);
+        if (active) {
+          try { renderCharts(active); } catch (e) { console.warn('Charts error:', e); }
+        }
       }, 50);
     });
   }
@@ -637,7 +710,9 @@ function setupEventListeners() {
       modal.classList.remove('hidden');
       setTimeout(() => {
         const active = getActiveData();
-        if (active) renderCharts(active);
+        if (active) {
+          try { renderCharts(active); } catch (e) { console.warn('Charts error:', e); }
+        }
       }, 50);
     });
   }

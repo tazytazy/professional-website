@@ -12,6 +12,13 @@ const DEFAULT_ZOOM = 12;
  * Initialize Leaflet Map
  */
 function initMap() {
+  if (typeof L === 'undefined') {
+    console.warn('Leaflet not yet ready, retrying initMap in 100ms...');
+    setTimeout(initMap, 100);
+    return;
+  }
+  if (map) return; // Prevent double init
+
   map = L.map('map', {
     center: SINGAPORE_CENTER,
     zoom: DEFAULT_ZOOM,
@@ -75,6 +82,10 @@ function setMapStyle(style) {
  * @param {Object} options { radius, blur, metric }
  */
 function updateHeatmap(points, options = {}) {
+  if (!map || typeof L === 'undefined' || typeof L.heatLayer !== 'function') {
+    console.warn('Leaflet or Leaflet.heat not available for updateHeatmap');
+    return;
+  }
   if (heatLayer) {
     map.removeLayer(heatLayer);
   }

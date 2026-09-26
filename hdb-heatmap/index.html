@@ -5,34 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Singapore HDB Rental Heatmap (Past 1 Year)</title>
   
+  <base href="/hdb-heatmap/" />
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Leaflet CSS & JS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet CSS & JS (Cloudflare CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
   
   <!-- Leaflet Heatmap Plugin -->
-  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
   
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
   
   <!-- Custom Styles -->
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="/hdb-heatmap/css/style.css" />
 </head>
 <body class="bg-slate-900 text-slate-100 flex flex-col h-screen h-[100dvh] w-full overflow-hidden font-sans">
 
   <!-- Top Header Navigation Bar -->
   <header class="bg-slate-800 border-b border-slate-700 px-3 sm:px-4 py-2.5 flex items-center justify-between z-[9999] shadow-md shrink-0">
-    <div class="flex items-center space-x-2.5">
-      <button id="btn-toggle-sidebar-mobile" class="md:hidden bg-slate-700 hover:bg-slate-600 text-amber-400 p-2 rounded-lg font-bold border border-slate-600 flex items-center justify-center shadow" title="Toggle Filters Panel">
+    <div class="flex items-center space-x-2 sm:space-x-2.5">
+      <a href="/" class="bg-slate-700 hover:bg-slate-600 text-slate-300 hover:text-white p-2 rounded-lg font-bold border border-slate-600 flex items-center justify-center shadow transition shrink-0" title="Back to Homepage">
+        <i data-lucide="home" class="w-4 h-4"></i>
+      </a>
+      <button id="btn-toggle-sidebar-mobile" class="md:hidden bg-slate-700 hover:bg-slate-600 text-amber-400 p-2 rounded-lg font-bold border border-slate-600 flex items-center justify-center shadow shrink-0" title="Toggle Filters Panel">
         <i data-lucide="sliders" class="w-4 h-4"></i>
       </button>
-      <div class="bg-red-600 text-white p-1.5 sm:p-2 rounded-lg font-bold shadow-lg flex items-center space-x-1.5">
+      <div class="bg-red-600 text-white p-1.5 sm:p-2 rounded-lg font-bold shadow-lg flex items-center space-x-1.5 shrink-0">
         <i data-lucide="map-pin" class="w-4 h-4 sm:w-5 sm:h-5"></i>
         <span class="tracking-wide text-xs sm:text-sm">HDB HEATMAP</span>
       </div>
@@ -266,10 +271,14 @@
       </div>
 
       <!-- Map Loading Spinner Overlay -->
-      <div id="map-loading" class="absolute inset-0 bg-slate-950/85 backdrop-blur-sm z-[800] flex flex-col items-center justify-center space-y-3 transition-opacity duration-300">
-        <div class="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
-        <div class="text-sm font-bold text-white tracking-wide">Loading Singapore Heatmap...</div>
-        <div class="text-xs text-slate-400">Loading rental transactions & map tiles</div>
+      <div id="map-loading" class="absolute inset-0 bg-slate-950/40 backdrop-blur-[2px] z-[800] flex flex-col items-center justify-center p-4 transition-opacity duration-300 pointer-events-none">
+        <div class="bg-slate-900/95 border border-slate-700/80 px-5 py-3.5 rounded-2xl shadow-2xl flex items-center space-x-3 pointer-events-auto">
+          <div class="w-6 h-6 border-3 border-amber-500 border-t-transparent rounded-full animate-spin shrink-0"></div>
+          <div>
+            <div class="text-xs sm:text-sm font-bold text-white tracking-wide">Loading Singapore Heatmap...</div>
+            <div class="text-[10px] sm:text-xs text-slate-400">Loading rental transactions & map tiles</div>
+          </div>
+        </div>
       </div>
 
       <!-- Leaflet Map Div -->
@@ -364,8 +373,8 @@
   </div>
 
   <!-- Custom App Scripts -->
-  <script src="js/map.js"></script>
-  <script src="js/charts.js"></script>
-  <script src="js/app.js"></script>
+  <script src="/hdb-heatmap/js/map.js"></script>
+  <script src="/hdb-heatmap/js/charts.js"></script>
+  <script src="/hdb-heatmap/js/app.js"></script>
 </body>
 </html>
