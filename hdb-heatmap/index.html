@@ -27,7 +27,7 @@
 <body class="bg-slate-900 text-slate-100 flex flex-col h-screen overflow-hidden font-sans">
 
   <!-- Top Header Navigation Bar -->
-  <header class="bg-slate-800 border-b border-slate-700 px-3 sm:px-4 py-2.5 flex items-center justify-between z-20 shadow-md">
+  <header class="bg-slate-800 border-b border-slate-700 px-3 sm:px-4 py-2.5 flex items-center justify-between z-[9999] shadow-md">
     <div class="flex items-center space-x-2.5">
       <button id="btn-toggle-sidebar-mobile" class="md:hidden bg-slate-700 hover:bg-slate-600 text-amber-400 p-2 rounded-lg font-bold border border-slate-600 flex items-center justify-center shadow" title="Toggle Filters Panel">
         <i data-lucide="sliders" class="w-4 h-4"></i>
@@ -77,10 +77,10 @@
   <div class="flex-1 flex overflow-hidden relative">
 
     <!-- Mobile Backdrop Overlay for Sidebar -->
-    <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-30 hidden md:hidden transition-opacity"></div>
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-[9998] hidden md:hidden transition-opacity"></div>
 
     <!-- Sidebar Control & Leaderboard Panel (Collapsible Drawer on Mobile) -->
-    <aside id="sidebar" class="fixed inset-y-0 left-0 w-80 max-w-[85vw] md:relative md:w-96 bg-slate-800 border-r border-slate-700 flex flex-col z-40 shadow-2xl transition-transform duration-300 -translate-x-full md:translate-x-0">
+    <aside id="sidebar" class="fixed inset-y-0 left-0 w-80 max-w-[85vw] md:relative md:w-96 bg-slate-800 border-r border-slate-700 flex flex-col z-[9999] shadow-2xl transition-transform duration-300 -translate-x-full md:translate-x-0">
       
       <!-- Tab Navigation & Mobile Close Button -->
       <div class="flex items-center justify-between border-b border-slate-700 bg-slate-850">
@@ -258,7 +258,7 @@
     <main class="flex-1 relative">
       
       <!-- Mobile Floating Filter Controls Button -->
-      <div class="absolute top-3 left-3 z-[400] md:hidden">
+      <div class="absolute top-3 left-3 z-[1000] md:hidden">
         <button id="btn-floating-filters" class="bg-slate-800/90 backdrop-blur text-amber-400 border border-slate-700 font-bold px-3 py-2 rounded-xl text-xs flex items-center space-x-1.5 shadow-2xl active:scale-95 transition">
           <i data-lucide="sliders" class="w-4 h-4"></i>
           <span>Filters & Controls</span>

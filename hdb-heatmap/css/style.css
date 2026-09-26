@@ -49,6 +49,23 @@
   background-color: #263346;
 }
 
+/* Ensure mobile z-index hierarchy beats Leaflet controls (z-index 400..800) */
+header {
+  z-index: 9999 !important;
+}
+
+#sidebar {
+  z-index: 9999 !important;
+}
+
+#sidebar-backdrop {
+  z-index: 9998 !important;
+}
+
+#btn-floating-filters {
+  z-index: 1000 !important;
+}
+
 /* Ensure Map Legend box is ALWAYS on top of Leaflet layers & panes */
 #map-legend-box {
   z-index: 1000 !important;
@@ -57,7 +74,9 @@
 
 /* Touch interaction optimization for Leaflet mobile map */
 #map {
-  touch-action: pan-x pan-y;
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: pan-x pan-y !important;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -78,5 +97,6 @@
 .leaflet-control-attribution a {
   color: #94a3b8 !important;
 }
+
 
 
