@@ -598,16 +598,71 @@ function setupEventListeners() {
 
   // Analytics Modal Toggle
   const modal = document.getElementById('analytics-modal');
-  document.getElementById('btn-toggle-analytics').addEventListener('click', () => {
-    modal.classList.remove('hidden');
-    setTimeout(() => {
-      const active = getActiveData();
-      if (active) renderCharts(active);
-    }, 50);
-  });
+  const btnAnalytics = document.getElementById('btn-toggle-analytics');
+  if (btnAnalytics) {
+    btnAnalytics.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        const active = getActiveData();
+        if (active) renderCharts(active);
+      }, 50);
+    });
+  }
+  
+  const btnAnalyticsMobile = document.getElementById('btn-toggle-analytics-mobile');
+  if (btnAnalyticsMobile) {
+    btnAnalyticsMobile.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        const active = getActiveData();
+        if (active) renderCharts(active);
+      }, 50);
+    });
+  }
+
   document.getElementById('btn-close-analytics').addEventListener('click', () => {
     modal.classList.add('hidden');
   });
+
+  // Mobile Sidebar Drawer Toggle Listeners
+  const btnToggleSidebarMobile = document.getElementById('btn-toggle-sidebar-mobile');
+  const btnFloatingFilters = document.getElementById('btn-floating-filters');
+  const btnCloseSidebarMobile = document.getElementById('btn-close-sidebar-mobile');
+  const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+  if (btnToggleSidebarMobile) {
+    btnToggleSidebarMobile.addEventListener('click', () => toggleMobileSidebar(true));
+  }
+  if (btnFloatingFilters) {
+    btnFloatingFilters.addEventListener('click', () => toggleMobileSidebar(true));
+  }
+  if (btnCloseSidebarMobile) {
+    btnCloseSidebarMobile.addEventListener('click', () => toggleMobileSidebar(false));
+  }
+  if (sidebarBackdrop) {
+    sidebarBackdrop.addEventListener('click', () => toggleMobileSidebar(false));
+  }
+}
+
+/**
+ * Toggle Mobile Sidebar Drawer & Overlay
+ */
+function toggleMobileSidebar(show) {
+  const sidebar = document.getElementById('sidebar');
+  const backdrop = document.getElementById('sidebar-backdrop');
+  if (!sidebar || !backdrop) return;
+
+  if (show) {
+    sidebar.classList.remove('-translate-x-full');
+    backdrop.classList.remove('hidden');
+  } else {
+    sidebar.classList.add('-translate-x-full');
+    backdrop.classList.add('hidden');
+  }
+
+  if (window.map && typeof window.map.invalidateSize === 'function') {
+    setTimeout(() => window.map.invalidateSize(), 300);
+  }
 }
 
 function float(val) {

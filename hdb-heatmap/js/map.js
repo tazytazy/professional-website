@@ -30,6 +30,7 @@ function initMap() {
   L.control.zoom({ position: 'topright' }).addTo(map);
 
   markersLayer = L.layerGroup().addTo(map);
+  window.map = map;
 }
 
 /**

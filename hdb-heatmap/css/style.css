@@ -55,6 +55,12 @@
   pointer-events: auto !important;
 }
 
+/* Touch interaction optimization for Leaflet mobile map */
+#map {
+  touch-action: pan-x pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* Position Leaflet attribution cleanly below or unobtrusively */
 .leaflet-bottom.leaflet-right {
   z-index: 400 !important;
@@ -72,4 +78,5 @@
 .leaflet-control-attribution a {
   color: #94a3b8 !important;
 }
+
 
