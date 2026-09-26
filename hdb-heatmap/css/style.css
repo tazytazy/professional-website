@@ -49,6 +49,13 @@
   background-color: #263346;
 }
 
+html, body {
+  height: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 /* Ensure mobile z-index hierarchy beats Leaflet controls (z-index 400..800) */
 header {
   z-index: 9999 !important;
@@ -72,10 +79,16 @@ header {
   pointer-events: auto !important;
 }
 
-/* Touch interaction optimization for Leaflet mobile map */
+/* Touch interaction & full-bleed positioning for Leaflet mobile map */
 #map {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
   width: 100% !important;
   height: 100% !important;
+  min-height: 250px !important;
   touch-action: pan-x pan-y !important;
   -webkit-tap-highlight-color: transparent;
 }

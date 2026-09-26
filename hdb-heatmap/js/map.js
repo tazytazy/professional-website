@@ -17,12 +17,14 @@ function initMap() {
     zoom: DEFAULT_ZOOM,
     zoomControl: false,
     minZoom: 11,
-    maxZoom: 18
+    maxZoom: 18,
+    preferCanvas: true
   });
 
-  // Default Standard Basemap (OpenStreetMap)
+  // Default Standard Basemap (OpenStreetMap) with subdomains
   tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    subdomains: ['a', 'b', 'c'],
     maxZoom: 18
   }).addTo(map);
 
@@ -31,6 +33,16 @@ function initMap() {
 
   markersLayer = L.layerGroup().addTo(map);
   window.map = map;
+
+  // Crucial for mobile viewports: trigger invalidateSize when DOM layout settles
+  setTimeout(() => map.invalidateSize(), 100);
+  setTimeout(() => map.invalidateSize(), 400);
+  setTimeout(() => map.invalidateSize(), 1200);
+
+  window.addEventListener('resize', () => map.invalidateSize());
+  window.addEventListener('orientationchange', () => {
+    setTimeout(() => map.invalidateSize(), 250);
+  });
 }
 
 /**
@@ -46,13 +58,15 @@ function setMapStyle(style) {
       maxZoom: 18
     });
   } else {
-    // Standard OpenStreetMap
+    // Standard OpenStreetMap with subdomains
     tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      subdomains: ['a', 'b', 'c'],
       maxZoom: 18
     });
   }
   tileLayer.addTo(map);
+  map.invalidateSize();
 }
 
 /**

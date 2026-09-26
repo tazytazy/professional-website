@@ -42,8 +42,11 @@ function getActiveData() {
  */
 async function fetchRentalData() {
   try {
-    const resp = await fetch('data/hdb_rentals.json');
-    if (!resp.ok) throw new Error('API request failed');
+    let resp = await fetch('data/hdb_rentals.json');
+    if (!resp.ok) {
+      resp = await fetch('./data/hdb_rentals.json');
+    }
+    if (!resp.ok) throw new Error('API request failed with status ' + resp.status);
     globalData = await resp.json();
 
     const active = getActiveData();
@@ -60,9 +63,28 @@ async function fetchRentalData() {
     // Render Analytics Dashboard Charts
     renderCharts(active);
 
+    // Hide Map Loading Spinner Overlay
+    const mapLoading = document.getElementById('map-loading');
+    if (mapLoading) {
+      mapLoading.classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => mapLoading.remove(), 400);
+    }
+
+    // Trigger Leaflet viewport refresh
+    if (window.map) {
+      window.map.invalidateSize();
+      setTimeout(() => window.map.invalidateSize(), 200);
+    }
+
   } catch (err) {
     console.error('Error loading rental data:', err);
-    alert('Failed to load HDB rental dataset. Please ensure server and fetch_data.py have run.');
+    const mapLoading = document.getElementById('map-loading');
+    if (mapLoading) {
+      mapLoading.innerHTML = `
+        <div class="text-amber-400 font-bold text-sm">Unable to load dataset</div>
+        <div class="text-xs text-slate-400">Please check your internet connection and refresh.</div>
+      `;
+    }
   }
 }
 
